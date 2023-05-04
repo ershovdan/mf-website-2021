@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minecraft</title>
+    <link rel="stylesheet" href="{% static '../static/css/minecraft_css/main_minecraft_css.css' %}">
+</head>
+<body>
+    <main>
+        <nav class="main_nav">
+            <a href="/">
+                <div class="main_nav_logo">
+                    <img src="../../static/img/logo/mf/mf.png">
+                </div>
+            </a>
+
+            <ul class="main_nav_ul">
+                <li>
+                    <a href="/about"><div class="main_nav_ul_div"><p>ABOUT</p></div></a>
+                </li>
+                <li>
+                    <a href="/news"><div class="main_nav_ul_div"><p>NEWS</p></div></a>
+                </li>
+                <li>
+                    <a href="/contacts"><div class="main_nav_ul_div"><p>CONTACTS</p></div></a>
+                </li>
+                <li>
+                    <a href="/minecraft"><div class="main_nav_ul_div"><p class="minecraft">MINECRAFT</p></div></a>
+                </li>
+                <li>
+                    <a href="/other"><div class="main_nav_ul_div"><p>OTHER</p></div></a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <section class="main_nav_back"></section>
+
+
+        <div class="main_background">
+            <img class="bg_logo" src="../../static/img/backgrounds/minecraft.jpg">
+            <img class="logo" src="../../static/img/logo/MfCraft/MfCraft.png">
+            <ul class="main_ul">
+{#                <li><a href="#review"><div><p>REVIEW</p></div></a></li>#}
+                <li><a href="#download"><div><p>DOWNLOAD</p></div></a></li>
+                <li><a href="/minecraft/map"><div><p>ONLINE MAP</p></div></a></li>
+                <li><a href="#documentation"><div><p>DOCUMENTATION</p></div></a></li>
+                <li><a href="/minecraft/more"><div><p>MORE</p></div></a></li>
+            </ul>
+        </div>
+
+{#        <section id="review" class="second_section" >#}
+{##}
+{#        </section>#}
+
+        <a class="nav_anchor" id="download"></a>
+        <section class="download_section" >
+            <img class="bg_logo" src="../../static/img/backgrounds/minecraft2.jpg">
+            <div class="download_abs">
+                <h2>DOWNLOAD</h2>
+                <p class="download_p">
+                    Download launcher for MfCraft server. Start play Minecraft with beautiful shaders and many mods.
+                </p>
+                <form class="download_button" action='download' method='GET'>
+                    <button type='submit'><span class="d_for_win">Download</span><span class="for_win">launcher for Windows</span></button>
+                </form>
+
+{#                <a href="https://github.com/ershovdan/MfCraft" target="_blank" class="download_from_github">#}
+{#                    <img src="../../static/img/logo/MfCraft/github.png">#}
+{#                </a>#}
+
+                <form class="download_pack_button" action='download_pack' method='GET'>
+                    <button type='submit'><span class="d_for_win">Download</span><span class="for_win">mod pack</span></button>
+                </form>
+
+                <a class="download_tl_button" href="https://tlauncher.org/" target="_blank">
+                    <button type='submit'><span class="d_for_win">TLauncher</span></button>
+                </a>
+
+            </div>
+        </section>
+
+
+        <a class="nav_anchor" id="documentation"></a>
+        <section class="documentation_sec">
+            <h2 class="doc_title">DOCUMENTATION</h2>
+
+            <ul class="doc_nav">
+                <li><a href="#for_win">INSTALLATION FOR WINDOWS</a></li>
+                <li><a href="#for_win_github">INSTALLATION FOR WINDOWS WITH GIT</a></li>
+                <li><a href="#how_to_use">HOW TO USE</a></li>
+            </ul>
+
+            <a class="nav_anchor" id="for_win"></a>
+            <h3 class="installers">Installer for Windows</h3>
+
+            <h3>Downloading</h3>
+            <p class="installer_p">At first you should download the launcher from this website.</p>
+
+            <h3>Installation</h3>
+            <p class="installer_p">1. Start the installer and choose language.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/1.JPG">
+
+            <p class="installer_p">2. Click Next.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/2.JPG">
+
+            <p class="installer_p">3. Choose place for the launcher.</p>
+            <img  class="install_img"src="../../static/img/other/MfCraft/win_install/3.JPG">
+
+            <p class="installer_p">4. Enter name for shortcuts in Start Menu.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/4.JPG">
+
+            <p class="installer_p">5. Create icon on desktop if you want.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/5.JPG">
+
+            <p class="installer_p">6. Start installation.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/6.JPG">
+
+            <p class="installer_p">7. Wait the end of installation.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/7.JPG">
+
+            <p class="installer_p">8. Finish installation.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/8.JPG">
+
+
+            <a class="nav_anchor" id="for_win_github"></a>
+            <h3 class="installers">Installation for Windows with Git</h3>
+
+{#            <h3>First method</h3>#}
+{##}
+{#            <p class="installer_p">1. Go to the launcher page on GitHub.</p>#}
+{##}
+{#            <p class="installer_p">2. Donload ZIP archive.</p>#}
+{##}
+{#            <p class="installer_p">3. Unzip it in place for your choise.</p>#}
+{##}
+{#            <p class="installer_p">4. Create desktop shortcut if you want (from MfCraft\MfCraft.exe).</p>#}
+{##}
+{#            <h3>Second method</h3>#}
+
+            <p class="download_git installer_p">1. <a href="https://git-scm.com/download/win" target="_blank">Install GIT</a>.</p>
+
+            <p class="installer_p">2. Open terminal.</p>
+
+            <p class="installer_p">3. Type 'cd location_for_launcher'.</p>
+
+            <p class="installer_p">4. Make directory('mkdir dir_name').</p>
+
+            <p class="installer_p">5. Make directory('mkdir dir_name').</p>
+
+            <p class="installer_p">6. 'cd dir_name'.</p>
+
+            <p class="installer_p">7. Create desktop shortcut if you want (MfCraft.exe).</p>
+
+
+            <a class="nav_anchor" id="how_to_use"></a>
+            <h3 class="installers">How to use</h3>
+
+            <p class="download_git installer_p">1. <a href="https://www.java.com/download/manual.jsp" target="_blank">Download Java</a></p>
+
+            <p class="installer_p">2. Start MfCraft</p>
+
+            <p class="installer_p">3. Wait for button PLAY and then press it.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/9.JPG">
+
+            <p class="installer_p">4. After that TLaucnher will start.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/11.JPG">
+
+            <p class="installer_p">5. Select Forge 1.12.2 version.</p>
+
+            <p class="installer_p">6. Go to the settings > setting and paste path to your minecraft in MfCraft's directory.</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/12.JPG">
+
+            <p class="installer_p download_git">7. Type your nickname or login in your <a href="https://tlauncher.org/en/reg/" target="_blank">TLauncher account</a>.</p>
+
+            <p class="installer_p">8. Enter the game.</p>
+
+
+
+
+
+            <h3 class="installers">Errors</h3>
+
+            <p class="installer_p">Connection error (check your internet connection and then restart launcher).</p>
+            <img class="install_img" src="../../static/img/other/MfCraft/win_install/10.JPG">
+        </section>
+
+    <section class="main_section_footer">
+        <section class="main_container_footer">
+            <p class="copyright_footer"><span class="span_copy">©</span> 2021-2022 Modern Face. All Rights Reserved.</p>
+            <ul class="main_ul_footer">
+                <li><a href="/about">About</a></li>
+                <li><a href="/news">News</a></li>
+                <li><a href="/contacts">Contacts</a></li>
+                <li><a href="/minecraft">Minecraft</a></li>
+                <li><a href="/other">Other</a></li>
+                <li><a href="/EULA">EULA</a></li>
+            </ul>
+        </section>
+    </section>
+
+
+    </main>
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+</body>
+</html>

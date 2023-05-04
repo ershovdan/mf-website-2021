@@ -1,0 +1,301 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forum</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    @media only screen and (min-device-width: 1024px)  and (orientation: landscape) {
+        body {
+            overflow-x: hidden;
+            background-color: white;
+        }
+
+        .for_small {
+            display: none;
+        }
+
+        main {
+            background-color: rgb(10, 10, 10);
+            color: white;
+        }
+
+        .main_sec {
+            min-height: 100vh;
+            width: 100vw;
+        }
+
+        .popular_topics {
+            background-color: rgb(20, 20, 20);
+        }
+
+        .cat_hs {
+            text-align: center;
+            font-family: Verdana, 'sans-serif';
+            font-size: 1.1em;
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+
+        .topic_cont {
+            width: 80vw;
+            margin-left: 10vw;
+            margin-right: 10vw;
+        }
+
+        .topic {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+            padding: 5px;
+        }
+
+        .topic:hover {
+            background-color: rgb(40, 40, 40);
+        }
+
+        .themes:hover {
+            background-color: rgb(40, 40, 40);
+        }
+
+        .main_part_of_topic {
+            display: grid;
+            grid-template-columns: 49vw 31vw;
+        }
+
+        .main_part_of_topic_info {
+            display: grid;
+            grid-template-columns: 12vw 5vw 13vw;
+            width: 30vw;
+            float: right;
+        }
+
+        .topic_a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .main_part_of_topic a:hover {
+            color: gray;
+            transition: 0.4s;
+        }
+
+        .main_part_of_topic_info_item {;
+            display: flex;
+            justify-content: right;
+        }
+
+        .main_part_of_topic_info_number_of_posts_cont, .main_part_of_topic_info_number_of_views_cont {
+            margin-right: 20px;
+        }
+
+        .main_part_of_topic_info_item img {
+            width: 1em;
+            height: 1em;
+            margin-left: 5px;
+        }
+
+        .forum_title {
+            font-family: Verdana, 'sans-serif';
+            margin-top: 25px;
+            display: grid;
+            column-gap: 25vw;
+            grid-template-columns: 25vw 55vw;
+            margin-bottom: 40px;
+        }
+
+        .forum_logo {
+            margin-left: 5vw;
+        }
+
+        .forum_logo img {
+            width: 15vw;
+        }
+
+        .search_topic {
+            outline: none;
+            font-size: 1.1em;
+            width: 30vw;
+            padding: 3px;
+        }
+
+        .search_topic:focus {
+            outline: none;
+        }
+
+        .search div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .search {
+            display: flex;
+            margin-right: 2vw;
+        }
+
+        .search p {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .topic_description {
+            font-size: 0.8em;
+            width: 50vw;
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+
+        .topic_name {
+            font-size: 1.2em;
+        }
+
+        .create_new div {
+            width: 9em;
+            height: 2vw;
+            background-color: white;
+            padding: 3px;
+            border-radius: 3px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            margin-left: 3vw;
+        }
+
+        .create_new {
+            text-decoration: none;
+            color: black;
+            width: 9em;
+            height: 2vw;
+            margin-top: 10px;
+        }
+
+        .create_new div:hover {
+            background-color: black;
+            color: white;
+            transition: 0.4s;
+        }
+
+        .themes {
+            background-color: rgb(20, 20, 20);
+        }
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+        body {
+            overflow-x: hidden;
+        }
+
+        .for_small {
+            display: none;
+        }
+    }
+</style>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <section class="main_sec">
+            <div class="forum_title">
+                <a href="/csgo/forum/">
+                    <div class="forum_logo">
+                        <img src="../../../static/img/cs_go/forum/forum_logo.png">
+                    </div>
+                </a>
+                <div class="search">
+                    <div>
+                        <p>SEARCH TOPIC</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input class="search_topic" id="search_topic" type="text" name="search_topic">
+                            <input type="submit" hidden>
+                        </form>
+                    </div>
+                    <a class="create_new" href="/csgo/forum/new_topic/"><div><h3>NEW ONE</h3></div></a>
+                </div>
+
+            </div>
+
+            <div class="last_topics cat_hs">
+                <div class="topic_cont">
+                    <h2>LAST TOPICS</h2>
+                    {% for last_topic in last_topics %}
+                        <a href="/csgo/forum/topic/?topic_id={{ last_topic.id }}" class="topic_a">
+                            <div class="topic">
+                                <div class="main_part_of_topic">
+                                    <p class="topic_name">{{ last_topic.name }}</p>
+                                    <div class="main_part_of_topic_info">
+                                        <div class="main_part_of_topic_info_views_cont main_part_of_topic_info_item">
+                                            <p class="main_part_of_topic_info_views">{{ last_topic.views }}</p>
+                                            <img src="../../../static/img/cs_go/forum/views.png">
+                                        </div>
+                                        <div class="main_part_of_topic_info_number_of_posts_cont main_part_of_topic_info_item">
+                                            <p class="main_part_of_topic_info_number_of_posts">{{ last_topic.number_of_posts }}</p>
+                                            <img src="../../../static/img/cs_go/forum/posts.png">
+                                        </div>
+                                        <p class="main_part_of_topic_info_last_update main_part_of_topic_info_item">{{ last_topic.last_update }}</p>
+                                    </div>
+                                </div>
+                                <p class="topic_description">{{ last_topic.description }}</p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="popular_topics cat_hs">
+                <div class="topic_cont">
+                    <h2>POPULAR TOPICS</h2>
+                    {% for popular_topic in popular_topics %}
+                        <a href="/csgo/forum/topic/?topic_id={{ popular_topic.id }}" class="topic_a">
+                            <div class="topic">
+                                <div class="main_part_of_topic">
+                                    <p class="topic_name">{{ popular_topic.name }}</p>
+                                    <div class="main_part_of_topic_info">
+                                        <div class="main_part_of_topic_info_views_cont main_part_of_topic_info_item">
+                                            <p class="main_part_of_topic_info_views">{{ popular_topic.views }}</p>
+                                            <img src="../../../static/img/cs_go/forum/views.png">
+                                        </div>
+                                        <div class="main_part_of_topic_info_number_of_posts_cont main_part_of_topic_info_item">
+                                            <p class="main_part_of_topic_info_number_of_posts">{{ popular_topic.number_of_posts }}</p>
+                                            <img src="../../../static/img/cs_go/forum/posts.png">
+                                        </div>
+                                        <p class="main_part_of_topic_info_last_update main_part_of_topic_info_item">{{ popular_topic.last_update }}</p>
+                                    </div>
+                                </div>
+                                <p class="topic_description">{{ popular_topic.description }}</p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="popular_themes cat_hs">
+                <h2>SOME THEMES</h2>
+                <div class="topic_cont" style="margin-top: 30px">
+                    {% for theme in themes %}
+                        <a style="text-decoration: none; color: white; font-size: 1.2em" href="">
+                            <div style="padding: 10px; margin-bottom: 20px;" class="themes">
+                                <a href="/csgo/forum/themes_list/?theme={{ theme }}" style="color: white; text-decoration: none;"><p>{{ theme }}</p></a>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </section>
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p class="for_small_p">Your device is too small!</p>
+    </div>
+</body>
+</html>

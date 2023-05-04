@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ topic_name }}</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    @media only screen and (min-device-width: 1024px)  and (orientation: landscape) {
+        body {
+            overflow-x: hidden;
+            background-color: white;
+        }
+
+        .for_small {
+            display: none;
+        }
+
+        main {
+            background-color: rgb(10, 10, 10);
+            color: white;
+        }
+
+        .main_sec {
+            background-color: rgb(10, 10, 10);
+            min-height: 100vh;
+        }
+
+        .topic_top {
+            display: grid;
+            margin-top: 25px;
+            margin-bottom: 40px;
+            grid-template-columns: 15vw 1fr;
+            width: 90vw;
+            margin-left: 5vw;
+            font-family: Verdana, 'sans-serif';
+        }
+
+        .topic_top h2 {
+            margin-left: 50px;
+            font-size: 1.7em;
+        }
+
+        .topic_top div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 84%;
+            margin-top: 10px;
+        }
+
+        .topic_top div p {
+            text-align: right;
+        }
+
+        .topic_top img {
+            width: 15vw;
+        }
+
+        .main_post_cont {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .post_cont {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main_post {
+            font-family: Verdana, 'sans-serif';
+            width: 70vw;
+            display: grid;
+            column-gap: 2vw;
+            grid-template-columns: 9vw 59vw;
+            background-color: rgb(30, 30, 30);
+            padding: 3vw;
+            border-radius: 1vw;
+        }
+
+        .post {
+            font-family: Verdana, 'sans-serif';
+            width: 70vw;
+            display: grid;
+            column-gap: 2vw;
+            grid-template-columns: 9vw 59vw;
+            background-color: rgb(20, 20, 20);
+            padding: 3vw;
+            border-radius: 1vw;
+        }
+
+        .message {
+            width: 60vw;
+        }
+
+        .author {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .author a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .author img {
+            max-width: 68px;
+            border-radius: 44px;
+        }
+
+        .answer {
+            text-decoration: none;
+            color: black;
+            background-color: white;
+            width: 6em;
+            border-radius: 5px;
+            margin-left: 50px;
+        }
+
+        .answer div {
+            margin: 0;
+            padding: 5px;
+        }
+
+        .answer div p {
+            text-align: center;
+        }
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+        body {
+            overflow-x: hidden;
+        }
+
+        .for_small {
+            display: none;
+        }
+
+        .subject {
+            text-decoration: none;
+            color: white;
+        }
+    }
+</style>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <section class="main_sec">
+            <div class="topic_top">
+                <a href="/csgo/forum">
+                    <img src="../../../static/img/cs_go/forum/forum_logo.png">
+                </a>
+                <div>
+                    <h2>{{ topic_name_full }}</h2>
+                    <p>{{ topic_date }}</p>
+                    {% if not is_super_topic %}
+                        <a href="/csgo/forum/new_post/?topic_id={{ topic_id }}" class="answer"><div><p>ANSWER</p></div></a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="main_post_cont">
+                <div class="main_post">
+                    <div class="author">
+                        <div style="display: flex; justify-content: center;"><img src="../../../static/img/avatars/avatars_by_name/{{ topic_author }}.jpg"></div>
+                        <a href="/accounts/profile/{{ topic_author }}"><p>{{ topic_author }}</p></a>
+                    </div>
+                    <div class="message">
+                        <a class="subject" href="/csgo/forum/themes_list/?theme={{ topic_subject }}" style="text-decoration: none; color: white; font-size: 1em;"><h3 style="margin-bottom: 10px;">{{ topic_subject }}</h3></a>
+                        <p>{{ topic_description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {% for post in posts %}
+                <div class="post_cont">
+                    <div class="post">
+                        <div class="author">
+                            <div style="display: flex; justify-content: center;"><img src="../../../static/img/avatars/avatars_by_name/{{ post.author }}.jpg"></div>
+                            <a href="/accounts/profile/{{ post.author }}"><p>{{ post.author }}</p></a>
+                            <p style="font-size: 0.7em; margin-top: 5px;">{{ post.datetime }}</p>
+                        </div>
+                        <div class="message">
+                            <p>{{ post.text }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p class="for_small_p">Your device is too small!</p>
+    </div>
+</body>
+</html>

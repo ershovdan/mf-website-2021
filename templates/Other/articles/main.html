@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    @media only screen and (min-device-width: 1024px)  and (orientation: landscape) {
+        body {
+            overflow-x: hidden;
+            background-color: white;
+        }
+
+        .for_small {
+            display: none;
+        }
+
+        .main_sec {
+            height: 100vh;
+        }
+
+        .main_ul {
+            margin-left: 20vw;
+            margin-top: 50px;
+            font-family: Verdana, 'sans-serif';
+        }
+
+        .main_ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 1.4em;
+        }
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+        body {
+            overflow-x: hidden;
+        }
+
+        .for_small {
+            display: none;
+        }
+    }
+</style>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <section class="main_sec">
+            <ul class="main_ul">
+                <li><a href="/other/articles/spacex_raptor">SpaceX Raptor</a></li>
+            </ul>
+        </section>
+
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p class="for_small_p">Your device is too small!</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+@media screen, (min-width: 1024px){
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, 'sans-serif';
+    }
+
+    .for_small {
+        display: none;
+    }
+
+    .main_section {
+        column-gap: 50px;
+        display: grid;
+        grid-template-columns: min-content min-content;
+        width: min-content;
+        margin-left: 70px;
+        margin-top: 70px;
+    }
+
+    .names {
+        width: min-content;
+    }
+
+    .sub_titile {
+        grid-column-start: 1; grid-column-end: 1;
+    }
+
+    .username {
+        font-size: 5em;
+        font-weight: bold;
+        grid-column-start: 1; grid-column-end: 1;
+    }
+
+    .name {
+        grid-column-start: 1; grid-column-end: 1;
+        font-size: 1.9em;
+    }
+
+    .location {
+        grid-column-start: 1; grid-column-end: 1;
+        font-size: 1.2em;
+    }
+
+    .avatar {
+        margin-top: 15px;
+        border: 5px solid black;
+        grid-column-start: 2; grid-column-end: 2;
+        grid-row-start: 1; grid-row-end: 6;
+        width: 300px;
+    }
+
+    .gender {
+        font-size: 1.2em;
+        grid-column-start: 1; grid-column-end: 1;
+    }
+
+    .bithday {
+        font-size: 1.2em;
+        grid-column-start: 1; grid-column-end: 1;
+    }
+
+    .edit {
+        padding: 15px;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        background-color: black;
+        text-align: center;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        grid-column-start: 2; grid-column-end: 2;
+    }
+
+    .bio_titile {
+        font-size: 1.2em;
+        height: 1em;
+        margin-bottom: 10px;
+    }
+
+    .bio {
+        font-size: 1.2em;
+        margin-left: 10px;
+        text-align: justify;
+    }
+
+    .edit:hover {
+        transition: 0.3s;
+        background-color: #410056;
+    }
+
+    .full_height {
+        height: calc(100vh - 54px - 65px);
+    }
+}
+
+@media not screen, (max-width: 1023px) {
+    main {
+        display: none;
+    }
+
+    .for_small img{
+        width: 20%;
+    }
+
+    .for_small {
+        margin-top: 20px;
+        display: block;
+        text-align: center;
+    }
+}

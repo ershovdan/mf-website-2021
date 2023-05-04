@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rocket - R1</title>
+    <link rel="stylesheet" href="{% static '../static/css/other/rockets/r1_css.css' %}">
+</head>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+        <section class="main_section">
+            <h1 class="title">R1</h1>
+
+            <iframe width="1060" height="596" src="https://www.youtube.com/embed/RudvPtva9Lw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+            </iframe>
+
+            <iframe width="1060" height="596" src="https://www.youtube.com/embed/Xo_ohWdSP5g" title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+
+            <img src="../../../static/img/rockets/render/r1_render.png">
+            <p>Render</p>
+
+            <img src="../../../static/img/rockets/graphics/r1_graph.png">
+            <p class="second_p">Flight graph</p>
+        </section>
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+</body>
+</html>

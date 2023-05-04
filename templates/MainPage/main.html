@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static '../static/css/main_css/style.css' %}">
+    <link rel="icon" href="{% static 'img/logo/mf/mf.ico' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="enot" content="7721651498150V1dzpK_6yAepViSVW9YwV6Rn3NS7E_n6" />
+</head>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <section class="hello_stage" id="hello_stage">
+            {% if user.is_authenticated %}
+                <div class="hello hello_big" id="hello_big">
+                    <h1>Hello, {{ user.get_username }}!</h1>
+                    <h2>Welcome {{ greet }}.</h2>
+                </div>
+            {% else %}
+                <div class="hello hello_small" id="hello_small">
+                    <h1>Hello!</h1>
+                    <h2>Welcome to the Modern Face website.</h2>
+                </div>
+            {% endif %}
+        </section>
+
+        <div class="made_from">
+            <div>
+                <img class="made_from_img" src="../../static/img/logo/made_from/python.png">
+                <img class="made_from_img"  src="../../static/img/logo/made_from/django.png">
+                <img class="made_from_img"  src="../../static/img/logo/made_from/postgre.png">
+                <img class="made_from_img"  src="../../static/img/logo/made_from/ubuntu.png">
+                <img class="made_from_img"  src="../../static/img/logo/made_from/js.png">
+                <img class="made_from_img"  src="../../static/img/logo/made_from/nginx.png">
+            </div>
+        </div>
+
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p class="for_small_p">Your device is too small!</p>
+    </div>
+</body>
+
+<script>
+    window.addEventListener("load",function(event) {
+        const helloStage = document.getElementById('hello_stage')
+        const helloSmall = document.getElementById('hello_small')
+        const helloBig = document.getElementById('hello_big')
+
+        if (screen.width >= 320 && screen.width <= 767) {
+            if (helloSmall != undefined) {
+                helloSmall.style.marginTop = (screen.width - helloSmall.style.height) / 2 + 'px'
+                console.log(document.body.offsetWidth)
+            }
+
+            helloStage.style.height = screen.height + 'px'
+        }
+    }, false)
+</script>
+</html>

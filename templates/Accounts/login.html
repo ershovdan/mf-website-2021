@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static '../static/css/accounts_css/login_style.css' %}">
+</head>
+<body>
+    {% include 'blocks/menu/main_menu.html' %}
+    <div class="main_cont">
+        <form class="main_form" method="POST">
+            {% csrf_token %}
+            <div class="input1 input_div input_text">
+                <p>Username</p>
+                <input type="text" name="username" id="username" class="form-control">
+            </div>
+            <div class="input2 input_div input_text">
+                <p>Password</p>
+                <div class="password_cont"><input type="password" id="password" name="password" class="form-control" disabled required minlength="4"><div id="see_password" class="see_password"><img id="see_password_img" src="../../../static/img/buttons/see_password.png"></div></div>
+                <a id="forget_password" href="" class="forget_password"><div><p>Forget password</p></div></a>
+            </div>
+
+            <div class="button">
+                <input type="submit" id="submit" value="Login in" disabled>
+            </div>
+
+            <div class="without">
+                <p><a href="../singup">Don't have an account?</a></p>
+            </div>
+
+            <p class="error_p" id="error_p"></p>
+        </form>
+        {% include 'blocks/pictures/pictures.html' %}
+    </div>
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+
+    <script>
+        const username = document.getElementById('username')
+        const password = document.getElementById('password')
+        const submit = document.getElementById('submit')
+        const errorP = document.getElementById('error_p')
+        const seePassword = document.getElementById('see_password')
+        const seePasswordImg = document.getElementById('see_password_img')
+        const forgetPassword = document.getElementById('forget_password')
+
+        let buttonUnlock = false
+
+        let usernameError = true
+        let passwordError = true
+
+        let seePasswordState = false
+
+        function forget_dis () {
+            forgetPassword.childNodes[0].style.opacity = 0.5
+            forgetPassword.href = ''
+            forgetPassword.removeAttribute('href')
+            forgetPassword.childNodes[0].classList.remove('forget_password_add')
+        }
+
+        function forget_en () {
+            forgetPassword.setAttribute('href', '')
+            forgetPassword.childNodes[0].style.opacity = 1
+            forgetPassword.href = '/accounts/forget_password_send?username=' + username.value
+            forgetPassword.childNodes[0].classList.add('forget_password_add')
+        }
+
+        forget_dis()
+
+        seePassword.onclick = function () {
+            if (seePasswordState == false) {
+                seePasswordImg.src = '../../../static/img/buttons/see_password_close.png'
+                seePasswordState = true
+                password.type = 'text'
+            } else {
+                seePasswordImg.src = '../../../static/img/buttons/see_password.png'
+                seePasswordState = false
+                password.type = 'password'
+            }
+        }
+
+        password.onfocus = function () {
+            seePassword.style.display = 'block'
+        }
+
+        function check () {
+            if (username.value.length == 0) {
+                errorP.innerHTML = '{{ error }}'
+                errorP.style.opacity = 1
+            } else {
+                errorP.innerHTML = ''
+                errorP.style.opacity = 0
+            }
+
+            setTimeout(check, 100)
+
+            if (username.value.length >= 4) {
+                password.disabled = false
+                forget_en()
+                usernameError = false
+            } else {
+                if (buttonUnlock == false) {
+                    password.disabled = true
+                    usernameError = true
+                    forget_dis()
+                } else {
+                    usernameError = true
+                    forget_dis()
+                }
+            }
+
+            if (password.disabled == false) {
+                if ((password.value.length >= 8) && (usernameError == false)) {
+                    passwordError = false
+                    buttonUnlock = true
+                } else {
+                    passwordError = true
+                }
+            }
+
+            if ((usernameError == false) && (passwordError == false)) {
+                submit.disabled = false
+                submit.style.opacity = 1
+                submit.classList.add('button_add')
+            } else {
+                submit.disabled = true
+                submit.style.opacity = 0.5
+                submit.classList.remove('button_add')
+            }
+        }
+
+        setTimeout(check, 100)
+    </script>
+</body>
+</html>

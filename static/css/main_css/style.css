@@ -1,0 +1,231 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*==1024px-inf========================================================================================================*/
+
+@media only screen and (min-device-width: 1024px)  and (orientation: landscape) {
+    body {
+        overflow-x: hidden;
+        font-family: "Arial", serif;
+        background-color: white;
+    }
+
+    .for_small {
+        display: none;
+    }
+
+    .hello_stage {
+        width: 100%;
+        height: calc(100vh - 54px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /*margin-bottom: 9vh;*/
+        /*margin-top: 3vh;*/
+    }
+
+    .hello {
+        font-family: Verdana, 'sans-serif';
+        color: black;
+        font-size: 600%;
+        text-align: center;
+    }
+
+    .hello_small {
+        /*padding-bottom: 11%;*/
+    }
+
+    .hello_big {
+        text-align: center;
+        width: 100%;
+    }
+
+    .hello_big h1 {
+        font-size: 8vw;
+    }
+
+    .hello_big h2 {
+        font-size: 8vw;
+    }
+
+    .hello_small h1 {
+        font-size: 12vw;
+        margin-bottom: 1vw;
+    }
+
+    .hello_small h2 {
+        margin-top: 1vw;
+        margin-left: 7%;
+        margin-right: 7%;
+        font-size: 7vw;
+    }
+
+    .made_from {
+        /*padding-bottom: 40px;*/
+        /*padding-top: 40px;*/
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: calc(60vh - 54px);
+    }
+
+    .made_from div {
+        width: 80%;
+        margin-left: 10%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+}
+
+@media only screen and (min-width: 1200px) {
+    .made_from_img {
+        height: 140px;
+    }
+}
+
+@media only screen and (max-width: 1199px) and (min-width: 1024px){
+    .made_from_img {
+        height: 110px;
+    }
+}
+
+/*==768px-1024px======================================================================================================*/
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) and (orientation: portrait) {
+    body {
+        overflow-x: hidden;
+        font-family: "Arial", serif;
+        background-color: white;
+    }
+
+    .made_from_img {
+        height: 90px;
+    }
+
+    .for_small {
+        display: none;
+    }
+
+    .hello_stage {
+        width: 100%;
+        height: calc(100vh - 54px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .hello {
+        font-family: Verdana, 'sans-serif';
+        color: black;
+        font-size: 1000%;
+        text-align: center;
+    }
+
+
+    .hello_big {
+        text-align: center;
+        width: 100%;
+    }
+
+    .hello_big h1 {
+        font-size: 10vw;
+    }
+
+    .hello_big h2 {
+        font-size: 10vw;
+    }
+
+    .hello_small h1 {
+        font-size: 12vw;
+        margin-bottom: 1vw;
+    }
+
+    .hello_small h2 {
+        margin-top: 1vw;
+        margin-left: 7%;
+        margin-right: 7%;
+        font-size: 7vw;
+    }
+
+    .made_from {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: calc(60vh - 54px);
+    }
+
+    .made_from div {
+        width: 98%;
+        margin-left: 1%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+/*==320px-767pxx======================================================================================================*/
+
+@media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .hello_stage {
+        font-family: Verdana, 'sans-serif';
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    .hello_small {
+        font-size: 190%;
+        text-align: center;
+    }
+
+    .made_from div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .made_from div img {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 80px;
+    }
+
+    .for_small {
+        display: none;
+    }
+
+
+}
+
+/*==other=============================================================================================================*/
+
+@media only screen and (max-width: 1023px) and (orientation: landscape) {
+    .main_cont {
+        display: none;
+    }
+
+    .for_small img {
+        width: 20%;
+    }
+
+    .for_small {
+        margin-top: 20px;
+        display: block;
+        text-align: center;
+    }
+
+    .for_small p {
+        color: black;
+    }
+
+    main {
+        display: none;
+    }
+}

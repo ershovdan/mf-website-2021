@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '../static/css/blocks/menu/main_menu_css.css' %}">
+    <script type="text/javascript" src="{% static '../static/js/blocks/popup.js' %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include 'blocks/stats/yandex_metr.html' %}
+</head>
+<body>
+    <nav class="main_nav" id="main_nav">
+        <a href="/" id="home_href">
+            <div class="main_nav_logo">
+                <img id="logo" class="logo" src="https://modernface.space/static/img/logo/mf/mf.png">
+            </div>
+        </a>
+
+        <ul class="main_nav_ul" id="main_nav_ul">
+            <li>
+                <a href="/about"><div class="main_nav_ul_div"><p>ABOUT</p></div></a>
+            </li>
+            <li>
+                <a href="/news"><div class="main_nav_ul_div"><p>NEWS</p></div></a>
+            </li>
+            <li>
+                <a href="/contacts"><div class="main_nav_ul_div"><p>CONTACTS</p></div></a>
+            </li>
+            <li>
+                <a href="/csgo"><div class="main_nav_ul_div"><p>CS:GO</p></div></a>
+            </li>
+            <li>
+                <a href="/other"><div class="main_nav_ul_div"><p>OTHER</p></div></a>
+            </li>
+        </ul>
+
+        <div class="main_nav_log0" id="authenticatedParent">
+        {% if user.is_authenticated %}
+{#            <a class="main_nav_log" href="/accounts/logout/"><div class="main_nav_log2"><p>Log out</p></div></a>#}
+            <div class="authenticated" id="authenticated">
+                <div>
+                    <p>{{ request.user.username }}</p>
+                </div>
+                <img src="/static/img/avatars/avatars_by_name/{{ request.user.username }}.jpg">
+            </div>
+            <div class="popup_menu" id="popup_menu">
+                <a href="/accounts/profile/{{ request.user.username }}/"><div class="popup_menu_child"><p class="menu_p popup_menu_upper">My profile</p></div></a>
+                <a href="/accounts/logout"><div class="popup_menu_child logout"><p class="menu_p popup_menu_upper">Log out</p></div></a>
+            </div>
+        {% else %}
+            <a class="main_nav_log" href="/accounts/login/"><div class="main_nav_log2"><p id="login" class="log_p">Log in</p></div></a>
+        {% endif %}
+        </div>
+    </nav>
+
+    <section class="main_nav_back" id="main_nav_back"></section>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error 404</title>
+    <link rel="stylesheet" href="{% static '../static/css/errors_css/404.css' %}">
+</head>
+<body>
+<main>
+    {% include 'blocks/menu/main_menu.html' %}
+
+    <h1 class="h1">404</h1>
+    <p class="p">Oops, not found!</p>
+
+</main>
+<div class="for_small">
+    <img src="../../static/img/smiles/pokerface_smile.png">
+    <p>Your device is too small!</p>
+</div>
+</body>
+</html>

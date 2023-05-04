@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rocket - R2</title>
+    <link rel="stylesheet" href="{% static '../static/css/other/rockets/r2_css.css' %}">
+</head>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+        <section class="main_section">
+            <h1 class="title">R2</h1>
+
+            <img src="../../../static/img/rockets/render/r2_render.png">
+            <p>Render</p>
+
+            <img src="../../../static/img/rockets/graphics/r2_graph.png">
+            <p class="second_p">Flight graph</p>
+        </section>
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+</body>
+</html>

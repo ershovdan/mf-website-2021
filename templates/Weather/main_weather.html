@@ -1,0 +1,452 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+</head>
+<script>
+    window.addEventListener("load", function(event) {
+        let last_status = ''
+
+        document.getElementById('hide').style.display = 'block'
+
+        function period() {
+            fetch('https://modernface.space/other/weather-api/?format=json')
+                .then(res => res.json())
+                .then((out) => {
+                    if (last_status != out['last_weather']['weather']) {
+                        if (last_status != '') {
+                            {#document.getElementById('weather_video').style.display = 'none'#}
+                        }
+
+
+                        document.getElementById('open_weather_temp').innerText = Math.round(out['last_weather']['temp']) + "°C"
+                        document.getElementById('feels_like').innerText = 'Feels like ' + Math.round(out['last_weather']['temp_feels']) + "°C"
+                        document.getElementById('open_weather_wind').innerText = 'Wind: ' + Math.round(out['last_weather']['wind_speed']) + "m/s " + Math.round(out['last_weather']['wind_deg']) + '°'
+                        document.getElementById('open_weather_pressure').innerText = 'Pressure: ' + Math.round(out['last_weather']['pressure']) + "hPa"
+                        document.getElementById('open_weather_humidity').innerText = 'Humidity: ' + Math.round(out['last_weather']['humidity']) + "%"
+                        if (Math.round(out['last_weather']['visibility']) != 10000) {
+                            document.getElementById('open_weather_visibility').innerText = 'Visibility: ' + Math.round(out['last_weather']['visibility']) + 'm'
+                        } else {
+                            document.getElementById('open_weather_visibility').innerText = 'Visibility: >10000m'
+                        }
+
+                        document.getElementById('forecast1_img').src = '../../static/img/weather/' + out['forecast'][0]['weather'] + '.png'
+                        document.getElementById('forecast2_img').src = '../../static/img/weather/' + out['forecast'][1]['weather'] + '.png'
+                        document.getElementById('forecast3_img').src = '../../static/img/weather/' + out['forecast'][2]['weather'] + '.png'
+                        document.getElementById('forecast4_img').src = '../../static/img/weather/' + out['forecast'][3]['weather'] + '.png'
+                        document.getElementById('forecast5_img').src = '../../static/img/weather/' + out['forecast'][4]['weather'] + '.png'
+                        document.getElementById('forecast6_img').src = '../../static/img/weather/' + out['forecast'][5]['weather'] + '.png'
+                        document.getElementById('forecast7_img').src = '../../static/img/weather/' + out['forecast'][6]['weather'] + '.png'
+
+                        document.getElementById('forecast1_temp').innerHTML = Math.round(out['forecast'][0]['temp']) + '°C'
+                        document.getElementById('forecast2_temp').innerHTML = Math.round(out['forecast'][1]['temp']) + '°C'
+                        document.getElementById('forecast3_temp').innerHTML = Math.round(out['forecast'][2]['temp']) + '°C'
+                        document.getElementById('forecast4_temp').innerHTML = Math.round(out['forecast'][3]['temp']) + '°C'
+                        document.getElementById('forecast5_temp').innerHTML = Math.round(out['forecast'][4]['temp']) + '°C'
+                        document.getElementById('forecast6_temp').innerHTML = Math.round(out['forecast'][5]['temp']) + '°C'
+                        document.getElementById('forecast7_temp').innerHTML = Math.round(out['forecast'][6]['temp']) + '°C'
+
+                        function setForecastDate(numberOfDay) {
+                            let date = new Date()
+                            date.setDate(date.getDate() + numberOfDay)
+                            let day = String(date.getDate())
+                            if (day.length < 2) {
+                                day = '0' + day
+                            }
+                            let month = String(date.getMonth() + 1)
+                            if (month.length < 2) {
+                                month = '0' + month
+                            }
+                            document.getElementById('forecast' + numberOfDay + '_date').innerHTML = day + '.' + month
+                        }
+
+                        setForecastDate(1)
+                        setForecastDate(2)
+                        setForecastDate(3)
+                        setForecastDate(4)
+                        setForecastDate(5)
+                        setForecastDate(6)
+                        setForecastDate(7)
+
+                        function setAddForecast(number) {
+                            document.getElementById('forecast' + number + '_feels').innerText = 'Feels like ' + Math.round(out['forecast'][number - 1]['temp_feels']) + "°C"
+                            document.getElementById('forecast' + number + '_wind').innerText = 'Wind: ' + Math.round(out['forecast'][number - 1]['wind_speed']) + "m/s " + Math.round(out['last_weather']['wind_deg']) + '°'
+                            document.getElementById('forecast' + number + '_pressure').innerText = 'Pressure: ' + Math.round(out['forecast'][number - 1]['pressure']) + "hPa"
+                            document.getElementById('forecast' + number + '_humidity').innerText = 'Humidity: ' + Math.round(out['forecast'][number - 1]['humidity']) + "%"
+                            if (Math.round(out['forecast'][number - 1]['visibility']) != 10000) {
+                                document.getElementById('forecast' + number + '_visibility').innerText = 'Visibility: ' + Math.round(out['forecast'][number - 1]['visibility']) + "m"
+                            } else {
+                                document.getElementById('forecast' + number + '_visibility').innerText = 'Visibility: ' + ">10000m"
+                            }
+                            document.getElementById('forecast' + number + '_temp_min').innerText = 'Min: ' + Math.round(out['forecast'][number - 1]['temp_min']) + "°C"
+                            document.getElementById('forecast' + number + '_temp_max').innerText = 'Max: ' + Math.round(out['forecast'][number - 1]['temp_max']) + "°C"
+                            document.getElementById('forecast' + number + '_clouds_percentage').innerText = 'Clouds: ' + Math.round(out['forecast'][number - 1]['clouds_percentage']) + "%"
+                        }
+
+                        setAddForecast(1)
+                        setAddForecast(2)
+                        setAddForecast(3)
+                        setAddForecast(4)
+                        setAddForecast(5)
+                        setAddForecast(6)
+                        setAddForecast(7)
+
+                        if (out['last_weather']['weather'] != last_status) {
+                            last_status = out['last_weather']['weather']
+                            document.getElementById('weather_video').pause()
+                            document.getElementById('weather_video_source').src = '../../static/video/weather/' + last_status + '.mp4'
+                            document.getElementById('weather_video').load()
+                            document.getElementById('weather_video').play()
+                        }
+                        
+
+                        if ((window.innerWidth / window.innerHeight) < (16 / 9)) {
+                            document.getElementById('open_weather_img').src = '../../static/img/weather/' + last_status + '.png'
+
+                            document.getElementById('weather_video').style.height = window.innerHeight - 55 + 'px'
+                            document.getElementById('weather_video').style.width = document.getElementById('weather_video').style.height / 9 * 16
+                            document.getElementById('blur').style.width = document.getElementById('weather_video').offsetWidth + 'px'
+                            document.getElementById('blur').style.height = document.getElementById('weather_video').offsetHeight + 'px'
+			    document.getElementById('blur').style.top = document.getElementById('weather_video').offsetTop + 'px'	
+                        } else {
+                            document.getElementById('open_weather_img').src = '../../static/img/weather/' + last_status + '.png'
+
+                            document.getElementById('weather_video').style.width = window.innerWidth + 'px'
+                            document.getElementById('weather_video').style.top = window.innerHeight - document.getElementById('weather_video').offsetHeight + 'px'
+                            document.getElementById('blur').style.width = document.getElementById('weather_video').offsetWidth + 'px'
+                            document.getElementById('blur').style.height = document.getElementById('weather_video').offsetHeight + 'px'
+                            document.getElementById('blur').style.top = document.getElementById('weather_video').offsetTop + 'px'
+                        }
+
+                    }
+                })
+                .catch(err => {
+                    throw err
+                });
+
+            setTimeout(period, 5000)
+        }
+
+        setTimeout(period, 1)
+    }, false);
+</script>
+<body>
+    <main class="main_cont" id="hide" style="display: none">
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <div id="blur" class="blur"></div>
+
+        <video autoplay muted class="weather_video" id="weather_video" height="1080px">
+            <source src="" type="video/mp4"  id="weather_video_source">
+        </video>
+
+        <section class="section_cont">
+            <section class="section1">
+                <div class="open_weather">
+                    <div class="img_temp_cont">
+                        <img id="open_weather_img" class="open_weather_img" src="">
+                        <div>
+                            <p id="open_weather_temp" class="open_weather_temp"></p>
+                        </div>
+                    </div>
+
+                    <p id="feels_like" class="feels_like"></p>
+                    <div>
+                        <p id="open_weather_wind" class="add_weather"></p>
+                        <p id="open_weather_pressure" class="add_weather"></p>
+                        <p id="open_weather_humidity" class="add_weather"></p>
+                        <p id="open_weather_visibility" class="add_weather"></p>
+                    </div>
+                </div>
+                <div class="mf_weather">
+{#                    <p>SOON</p>#}
+                </div>
+            </section>
+
+            <section class="section2">
+                <div class="forecast" id="forecast1">
+                    <p class="forecast_date" id="forecast1_date"></p>
+                    <img id="forecast1_img" class="forecast_img" src="">
+                    <p class="forecast_temp" id="forecast1_temp"></p>
+
+                    <p id="forecast1_feels" class="forecast_feels"></p>
+
+                    <p id="forecast1_wind" class="add_forecast"></p>
+                    <p id="forecast1_pressure" class="add_forecast"></p>
+                    <p id="forecast1_humidity" class="add_forecast"></p>
+                    <p id="forecast1_visibility" class="add_forecast"></p>
+
+                    <p id="forecast1_temp_min" class="add_forecast"></p>
+                    <p id="forecast1_temp_max" class="add_forecast"></p>
+                    <p id="forecast1_clouds_percentage" class="add_forecast"></p>
+                </div>
+                <div class="forecast" id="forecast2">
+                    <p class="forecast_date" id="forecast2_date"></p>
+                    <img id="forecast2_img" class="forecast_img" src="">
+                    <p class="forecast_temp" id="forecast2_temp"></p>
+
+                    <p id="forecast2_feels" class="forecast_feels"></p>
+
+                    <p id="forecast2_wind" class="add_forecast"></p>
+                    <p id="forecast2_pressure" class="add_forecast"></p>
+                    <p id="forecast2_humidity" class="add_forecast"></p>
+                    <p id="forecast2_visibility" class="add_forecast"></p>
+
+                    <p id="forecast2_temp_min" class="add_forecast"></p>
+                    <p id="forecast2_temp_max" class="add_forecast"></p>
+                    <p id="forecast2_clouds_percentage" class="add_forecast"></p>
+                </div>
+                <div class="forecast" id="forecast3">
+                    <p class="forecast_date" id="forecast3_date"></p>
+                    <img id="forecast3_img" class="forecast_img" src="">
+                    <p class="forecast_temp" id="forecast3_temp"></p>
+
+                    <p id="forecast3_feels" class="forecast_feels"></p>
+
+                    <p id="forecast3_wind" class="add_forecast"></p>
+                    <p id="forecast3_pressure" class="add_forecast"></p>
+                    <p id="forecast3_humidity" class="add_forecast"></p>
+                    <p id="forecast3_visibility" class="add_forecast"></p>
+
+                    <p id="forecast3_temp_min" class="add_forecast"></p>
+                    <p id="forecast3_temp_max" class="add_forecast"></p>
+                    <p id="forecast3_clouds_percentage" class="add_forecast"></p>
+                </div>
+                <div class="forecast" id="forecast4">
+                    <p class="forecast_date" id="forecast4_date"></p>
+                    <img id="forecast4_img" class="forecast_img" src="">
+                    <p class="forecast_temp" id="forecast4_temp"></p>
+
+                    <p id="forecast4_feels" class="forecast_feels"></p>
+
+                    <p id="forecast4_wind" class="add_forecast"></p>
+                    <p id="forecast4_pressure" class="add_forecast"></p>
+                    <p id="forecast4_humidity" class="add_forecast"></p>
+                    <p id="forecast4_visibility" class="add_forecast"></p>
+
+                    <p id="forecast4_temp_min" class="add_forecast"></p>
+                    <p id="forecast4_temp_max" class="add_forecast"></p>
+                    <p id="forecast4_clouds_percentage" class="add_forecast"></p>
+                </div>
+                <div class="forecast" id="forecast5">
+                    <p class="forecast_date" id="forecast5_date"></p>
+                    <img id="forecast5_img" class="forecast_img" src="">
+                    <p class="forecast_temp" id="forecast5_temp"></p>
+
+                    <p id="forecast5_feels" class="forecast_feels"></p>
+
+                    <p id="forecast5_wind" class="add_forecast"></p>
+                    <p id="forecast5_pressure" class="add_forecast"></p>
+                    <p id="forecast5_humidity" class="add_forecast"></p>
+                    <p id="forecast5_visibility" class="add_forecast"></p>
+
+                    <p id="forecast5_temp_min" class="add_forecast"></p>
+                    <p id="forecast5_temp_max" class="add_forecast"></p>
+                    <p id="forecast5_clouds_percentage" class="add_forecast"></p>
+                </div>
+                <div class="forecast" id="forecast6">
+                    <p class="forecast_date" id="forecast6_date"></p>
+                    <img id="forecast6_img" class="forecast_img" src="">
+                    <p class="forecast_temp" id="forecast6_temp"></p>
+
+                    <p id="forecast6_feels" class="forecast_feels"></p>
+
+                    <p id="forecast6_wind" class="add_forecast"></p>
+                    <p id="forecast6_pressure" class="add_forecast"></p>
+                    <p id="forecast6_humidity" class="add_forecast"></p>
+                    <p id="forecast6_visibility" class="add_forecast"></p>
+
+                    <p id="forecast6_temp_min" class="add_forecast"></p>
+                    <p id="forecast6_temp_max" class="add_forecast"></p>
+                    <p id="forecast6_clouds_percentage" class="add_forecast"></p>
+                </div>
+                <div class="forecast" id="forecast7">
+                    <p class="forecast_date" id="forecast7_date"></p>
+                    <img id="forecast7_img" class="forecast_img" src="">
+                    <p class="forecast_temp" id="forecast7_temp"></p>
+
+                    <p id="forecast7_feels" class="forecast_feels"></p>
+
+                    <p id="forecast7_wind" class="add_forecast"></p>
+                    <p id="forecast7_pressure" class="add_forecast"></p>
+                    <p id="forecast7_humidity" class="add_forecast"></p>
+                    <p id="forecast7_visibility" class="add_forecast"></p>
+
+                    <p id="forecast7_temp_min" class="add_forecast"></p>
+                    <p id="forecast7_temp_max" class="add_forecast"></p>
+                    <p id="forecast7_clouds_percentage" class="add_forecast"></p>
+                </div>
+            </section>
+        </section>
+
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+</body>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    @media screen, (min-width: 1024px) {
+        .for_small {
+            display: none;
+        }
+
+        .forecast_feels {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .add_forecast {
+                text-align: center;
+                margin-top: 20px;
+            }
+
+        .forecast_temp {
+            text-align: center;
+            font-size: 2em;
+            margin-top: 20px;
+        }
+
+        .forecast_date {
+            text-align: center;
+            font-size: 1.6em;
+            margin-top: 80px;
+        }
+
+        .forecast {
+            display: flex;
+            flex-direction: column;
+            font-family: Verdana, 'sans-serif';
+        }
+
+        .forecast_img {
+            margin-top: 50px;
+            width: calc((80vw / 7) - 2vw);
+            filter: drop-shadow(1px 1px 10px #555);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .weather_video {
+            {#display: none;#}
+            position: absolute;
+            z-index: -100;
+        }
+
+        .blur {
+            position: absolute;
+            z-index: -70;
+            background-color: black;
+            opacity: 0.6;
+        }
+
+        .feels_like {
+            color: white;
+            font-size: 2em;
+            font-family: Verdana, 'sans-serif';
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .open_weather {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .open_weather_img {
+            height: 25vh;
+            width: 25vh;
+        }
+
+        .section1 {
+            height: calc(100vh - 55px);
+            display: flex;
+            flex-direction: row;
+        }
+
+        .section2 {
+            height: calc(100vh - 55px);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .section_cont {
+            width: 80vw;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        .open_weather {
+            width: 50%;
+        }
+
+        .add_weather {
+            font-family: Verdana, 'sans-serif';
+            color: white;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .mf_weather {
+            width: 50%;
+        }
+
+        .mf_weather p {
+            font-family: Verdana, 'sans-serif';
+            font-size: 4em;
+            text-align: center;
+            margin-top: calc((100vh - 55px - 6em) / 2);
+        }
+
+        .img_temp_cont {
+            display: flex;
+            flex-direction: row;
+            margin-top: 20vh;
+        }
+
+        .img_temp_cont div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 50px;
+        }
+
+        .img_temp_cont div p {
+            color: white;
+            font-family: Verdana, 'sans-serif';
+            font-size: 6em;
+        }
+    }
+
+    @media not screen, (max-width: 1023px) {
+        .main_cont {
+            display: none;
+        }
+
+        .for_small img{
+            width: 20%;
+        }
+
+        .for_small {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+        }
+
+        main {
+            display: none;
+        }
+    }
+</style>
+</html>

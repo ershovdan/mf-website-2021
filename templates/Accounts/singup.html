@@ -1,0 +1,341 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sing up</title>
+    <link rel="stylesheet" href="{% static '../static/css/accounts_css/singup_style.css' %}">
+    <script type="text/javascript" src="{% static '../static/js/account/singup.js' %}"></script>
+</head>
+<body>
+    {% include 'blocks/menu/main_menu.html' %}
+    <div class="main_cont">
+        <form class="main_form" method="POST" action="">
+            {% csrf_token %}
+
+            <div class="input1 input_div input_text" id="input1">
+                <p class="p">Username</p>
+                {{ form.username }}
+            </div>
+
+            <div class="input2 input_div input_text not_username" id="input2">
+                <p class="p">Email</p>
+                {{ form.email }}
+            </div>
+
+            <div class="input3 input_div input_text not_username" id="input3">
+                <p class="p">Password</p>
+                <div class="password_cont">{{ form.password1 }}<div id="see_password" class="see_password"><img id="see_password_img" src="../../../static/img/buttons/see_password.png"></div></div>
+            </div>
+
+            <div class="input4 input_div input_text not_username" id="input4">
+                <p class="p">Repeat password</p>
+                {{ form.password2 }}
+            </div>
+
+            <div class="input5 input_div not_username" id="input5">
+                <input id="agree_eula" name="chek_lis" type="checkbox" disabled required>
+                <p>agree with <a target="_blank" href="/EULA">EULA</a></p>
+            </div>
+
+            <div class="button not_username">
+                <input type="submit" name="Create" id="submit" value="Create an account">
+            </div>
+
+            <div class="with">
+                <p><a href="../login">Already have an account?</a></p>
+            </div>
+            <p class="error_p" id="error_p"></p>
+        </form>
+        {% include 'blocks/pictures/pictures.html' %}
+    </div>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+
+    <script>
+        window.addEventListener("load", function(event) {
+            const username = document.getElementById('input1').childNodes[3]
+            const email = document.getElementById('input2').childNodes[3]
+            const password = document.getElementById('input3').childNodes[3].childNodes[0]
+            const repeatPassword = document.getElementById('input4').childNodes[3]
+            const EULA = document.getElementById('agree_eula')
+            const submit = document.getElementById('submit')
+            const errorP = document.getElementById('error_p')
+            const seePassword = document.getElementById('see_password_img')
+
+
+            email.type = 'email'
+            email.disabled = true
+            password.type = 'password'
+            password.disabled = true
+            repeatPassword.type = 'password'
+            repeatPassword.disabled = true
+            seePassword.style.display = 'none'
+
+            let usernameError = false
+            let emailError = false
+            let passwordError = false
+            let repeatPasswordError = false
+
+            let EULA_Unlock = false
+
+            let error = ''
+            let users = JSON.parse('{{ users }}'.replace(/&#x27;/g, '"'))
+
+            let exUsername = false
+
+            let seePasswordState = false
+
+            function usernameIsValid(username) {
+                return /^[0-9a-zA-Z_.-]+$/.test(username)
+            }
+
+            function validateEmail(email) {
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                return re.test(String(email).toLowerCase())
+            }
+
+            function check () {
+                setTimeout(check, 100)
+
+                seePassword.onclick = function () {
+                    if (seePasswordState == false) {
+                        seePassword.src = '../../../static/img/buttons/see_password_close.png'
+                        seePasswordState = true
+                        password.type = 'text'
+                    } else {
+                        seePassword.src = '../../../static/img/buttons/see_password.png'
+                        seePasswordState = false
+                        password.type = 'password'
+                    }
+                }
+
+                repeatPassword.onfocus = function () {
+                    seePassword.src = '../../../static/img/buttons/see_password.png'
+                    seePasswordState = false
+                    password.type = 'password'
+                    seePassword.style.display = 'none'
+                }
+
+                password.onfocus = function () {
+                    seePassword.style.display = 'block'
+                }
+
+
+                if (username.value.length >= 5) {
+                    if (usernameIsValid(username.value)) {
+                        if (username.value.search(/[a-zA-Z]/) == -1) {
+                            error = 'Your username should include letters (english)!'
+                            errorP.innerHTML = error
+                            errorP.style.opacity = 1
+                            if (password.disabled == true) {
+                                email.disabled = true
+                            }
+                            usernameError = true
+                        } else if (username.value.search(/[^a-zA-Z0-9\-\_\.]/) != -1) {
+                            error = 'Your username should include only english letters and -_.!'
+                            errorP.innerHTML = error
+                            errorP.style.opacity = 1
+                            if (password.disabled == true) {
+                                email.disabled = true
+                            }
+                            usernameError = true
+                        } else {
+                            for (let i = 0; i < users.length; i++) {
+                                if (username.value == users[i]) {
+                                    exUsername = true
+                                    break
+                                } else {
+                                    exUsername = false
+                                }
+                            }
+                            if (exUsername == true) {
+                                error = 'This username already exist!'
+                                errorP.innerHTML = error
+                                errorP.style.opacity = 1
+                                if (password.disabled == true) {
+                                    email.disabled = true
+                                }
+                                usernameError = true
+                            } else {
+                                error = ''
+                                errorP.innerHTML = error
+                                email.disabled = false
+                                usernameError = false
+
+                                errorP.style.opacity = 0
+                            }
+                        }
+                    } else {
+                        error = 'Your username should include only english letters and -_.!'
+                        errorP.innerHTML = error
+                        errorP.style.opacity = 1
+                        if (password.disabled == true) {
+                            email.disabled = false
+                        }
+                        usernameError = true
+                    }
+                } else {
+                    if (username.value.length == 0) {
+                        error = ''
+                        errorP.style.opacity = 0
+                        usernameError = true
+                    } else {
+                        error = 'Your username should be more 4 letters!'
+                        errorP.style.opacity = 1
+                        usernameError = true
+                    }
+
+                    usernameError = true
+                    email.disabled = true
+                    errorP.innerHTML = error
+
+                    password.disabled = true
+                    repeatPassword.disabled = true
+                    EULA.disabled = true
+                    submit.disabled = true
+                    usernameError = true
+                }
+
+                if (email.disabled == false) {
+                    if (validateEmail(email.value) == false) {
+                        if (email.value.length == 0) {
+                            if (usernameError == false) {
+                                error = ''
+                                errorP.style.opacity = 0
+                            }
+                        } else {
+                            error = 'Please enter correct email!'
+                            errorP.style.opacity = 1
+                            emailError = true
+                        }
+                        errorP.innerHTML = error
+                        if (repeatPassword.disabled == true) {
+                            password.disabled = true
+                        }
+                    } else {
+                        if (usernameError == false) {
+                            error = ''
+                            errorP.innerHTML = error
+                            if (repeatPassword.disabled == true) {
+                                password.disabled = false
+                            }
+                            errorP.style.opacity = 0
+                        }
+                        emailError = false
+                    }
+                }
+
+                if (password.disabled == false) {
+                    if (password.value.length == 0) {
+                        if ((usernameError == false) && (emailError == false)) {
+                            error = ''
+                            errorP.innerHTML = error
+                            if (EULA_Unlock == false) {
+                                repeatPassword.disabled = true
+                            }
+                            errorP.style.opacity = 0
+                            passwordError = true
+                        }
+                    } else {
+                        if (password.value.length < 8) {
+                            error = 'Your password should be longer than 8 symbols!'
+                            errorP.innerHTML = error
+                            if (EULA_Unlock == false) {
+                                repeatPassword.disabled = true
+                            }
+                            errorP.style.opacity = 1
+                            passwordError = true
+                        } else {
+                            if (password.value.search(/\d/) == -1) {
+                                error = 'Your password should include numbers!'
+                                errorP.innerHTML = error
+                                errorP.style.opacity = 1
+                                if (EULA_Unlock == false) {
+                                    repeatPassword.disabled = true
+                                }
+                                passwordError = true
+                            } else if (password.value.search(/[a-zA-Z]/) == -1) {
+                                error = 'Your password should include english letters!'
+                                errorP.innerHTML = error
+                                errorP.style.opacity = 1
+                                if (EULA_Unlock == false) {
+                                    repeatPassword.disabled = true
+                                }
+                                passwordError = true
+                            } else if (password.value.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
+                                error = 'Your password should include only numbers, english letters and special characters (!@#$%^&*()_+)!'
+                                errorP.innerHTML = error
+                                errorP.style.opacity = 1
+                                if (EULA_Unlock == false) {
+                                    repeatPassword.disabled = true
+                                }
+                                passwordError = true
+                            } else {
+                                if (password.value.includes(username.value) == false) {
+                                    if ((usernameError == false) && (emailError == false)) {
+                                        error = ''
+                                        errorP.innerHTML = error
+                                        errorP.style.opacity = 0
+                                        repeatPassword.disabled = false
+                                    }
+                                    passwordError = false
+                                } else {
+                                    error = 'Your password is similar with username!'
+                                    errorP.innerHTML = error
+                                    errorP.style.opacity = 1
+                                    if (EULA_Unlock == false) {
+                                        repeatPassword.disabled = true
+                                    }
+                                    passwordError = true
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (repeatPassword.disabled == false) {
+                    if (repeatPassword.value != password.value) {
+                        if (repeatPassword.value.length < 8) {
+                            error = ''
+                        } else {
+                            error = "Passwords don't match!"
+                        }
+                        if (EULA_Unlock == false) {
+                            EULA.disabled = true
+                        }
+                        errorP.innerHTML = error
+                        errorP.style.opacity = 1
+                        repeatPasswordError = true
+                    } else {
+                        if ((usernameError == false) && (emailError == false) && (passwordError == false)) {
+                            error = ''
+                            errorP.innerHTML = error
+                            errorP.style.opacity = 0
+                            EULA.disabled = false
+                            EULA_Unlock = true
+                        }
+                        repeatPasswordError = false
+                    }
+                }
+
+                if (EULA.disabled == false) {
+                    if ((EULA.checked == true) && (usernameError == false) && (emailError == false) && (passwordError == false) && (repeatPasswordError == false)) {
+                        submit.parentNode.style.opacity = '1'
+                        submit.disabled = false
+                        submit.classList.add('button_add')
+                    } else {
+                        submit.parentNode.style.opacity = '0.5'
+                        submit.disabled = true
+                        submit.classList.remove('button_add')
+                    }
+                }
+            }
+            setTimeout(check, 100)
+        }, false);
+    </script>
+</body>
+</html>

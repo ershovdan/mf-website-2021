@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+@media screen, (min-width: 1190px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .for_small {
+        display: none;
+    }
+
+
+
+    .h1 {
+        text-align: center;
+        font-size: 11em;
+        font-family: Verdana, 'sans-serif';
+        margin-top: 100px;
+    }
+
+    .p {
+        text-align: center;
+        font-size: 1.9em;
+        font-family: Verdana, 'sans-serif';
+    }
+
+}
+
+@media not screen, (max-width: 1023px) {
+    .main_cont {
+        display: none;
+    }
+
+    .for_small img {
+        width: 20%;
+    }
+
+    .for_small {
+        margin-top: 20px;
+        display: block;
+        text-align: center;
+    }
+
+    main {
+        display: none;
+    }
+}

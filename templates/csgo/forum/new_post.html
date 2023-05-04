@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New post</title>
+</head>
+<style>
+     * {
+        margin: 0;
+        padding: 0;
+    }
+
+    @media only screen and (min-device-width: 1024px)  and (orientation: landscape) {
+        body {
+            overflow-x: hidden;
+            background-color: white;
+        }
+
+        .for_small {
+            display: none;
+        }
+
+        main {
+            background-color: rgb(10, 10, 10);
+            color: white;
+        }
+
+        .main_sec {
+            background-color: rgb(10, 10, 10);
+            min-height: 100vh;
+        }
+
+        .new_post_top {
+            display: flex;
+            font-family: Verdana, 'sans-serif';
+            justify-content: space-between;
+            width: 92vw;
+            margin-left: 4vw;
+            margin-top: 30px;
+        }
+
+        .new_post_top a {
+            text-decoration: none;
+            color: black;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .new_post_top a div {
+            background-color: white;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .new_post_top a div:hover {
+            background-color: black;
+            color: white;
+            transition: 0.5s;
+        }
+
+        .text_inp textarea {
+            width: 70vw;
+            font-family: Verdana, 'sans-serif';
+            height: 60vh;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1em;
+            line-height: 1.1em;
+            outline: none;
+            background-color: black;
+            color: white;
+            resize: none;
+        }
+
+        .text_inp {
+            margin-top: 50px;
+            margin-left: 15vw;
+        }
+
+        .create_cont {
+            display: flex;
+            justify-content: center;
+            font-family: Verdana, 'sans-serif';
+            font-weight: bold;
+            font-size: 1.4em;
+            margin-top: 50px;
+        }
+
+        .create_cont button div {
+            width: 8vw;
+            height: 4vh;
+            border-radius: 5px;
+            background-color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .create_cont button div p {
+            font-family: Verdana, 'sans-serif';
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        .create_cont button div:hover {
+            background-color: black;
+            color: white;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .create_cont button {
+            text-decoration: none;
+            color: black;
+            border: none;
+            border-radius: 7px;
+        }
+    }
+    @media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+        body {
+            overflow-x: hidden;
+        }
+
+        .for_small {
+            display: none;
+        }
+
+        .subject {
+            text-decoration: none;
+            color: white;
+        }
+    }
+</style>
+</style>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <section class="main_sec">
+            <div class="new_post_top">
+                <a href="/csgo/forum/topic/?topic_id={{ topic_id }}"><div><p>BACK</p></div></a>
+                <h2>NEW POST CREATION</h2>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="text_inp">
+                    <textarea name="text"></textarea>
+                </div>
+
+                <div class="create_cont">
+                    <button type="submit"><div><p>CREATE</p></div></button>
+                </div>
+            </form>
+        </section>
+
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p class="for_small_p">Your device is too small!</p>
+    </div>
+</body>
+</html>

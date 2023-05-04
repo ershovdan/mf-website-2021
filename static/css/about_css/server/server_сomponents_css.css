@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+@media screen, (min-width: 1024px) {
+    body {
+        overflow-x: hidden;
+        font-family: "Arial", serif;
+    }
+
+    .for_small {
+        display: none;
+    }
+
+    .main_h1 {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        font-size: 3.1em;
+        font-family: Verdana, 'sans-serif';
+        letter-spacing: 9px;
+    }
+
+    .main_sec {
+        height: calc(100vh - 54px);
+    }
+
+    .mars_logo {
+        width: 40vw;
+        margin-left: 30vw;
+        margin-right: 30vw;
+        margin-top: 50px;
+    }
+
+    .comp_cont {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 37vh 37vh;
+        width: 80vw;
+        margin-left: 10vw;
+        margin-top: 40px;
+        column-gap: 30px;
+    }
+
+    .comp {
+        font-family: Verdana, 'sans-serif';
+    }
+
+    .comp h2 {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
+    .comp img {
+        width: 34%;
+        margin-left: 33%;
+        margin-right: 33%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .comp ul {
+        font-size: 1.2em;
+        width: 40%;
+        margin-left: 30%;
+        text-align: center;
+    }
+
+    .comp ul li {
+        list-style: none;
+        margin-bottom: 5px;
+    }
+
+    .second_sec {
+        height: calc(100vh - 54px);
+    }
+
+    .second_sec {
+        display: flex;
+        justify-content: center;
+    }
+
+    .second_sec img {
+        height: 40vw;
+        margin-top: 100px;
+    }
+}
+
+@media not screen, (max-width: 1023px) {
+    .main_cont {
+        display: none;
+    }
+
+    .for_small img{
+        width: 20%;
+    }
+
+    .for_small {
+        margin-top: 20px;
+        display: block;
+        text-align: center;
+    }
+
+    main {
+        display: none;
+    }
+}

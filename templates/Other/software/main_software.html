@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Software</title>
+    <link rel="stylesheet" href="{% static '../static/css/other/software/main_software_css.css' %}">
+</head>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <section>
+            <h1 class="software_h1">SOFTWARE</h1>
+
+            <section class="baf_cont">
+                <a style="cursor: pointer;" href="https://github.com/ershovdan/QOTWS" target="_blank">
+                    <section class="baf">
+                        <img src="../../../static/img/software/QOTWS_background.png" style="z-index: -100;">
+                    </section>
+                </a>
+            </section>
+
+            <section class="baf_cont">
+                <a style="cursor: pointer;" href="https://github.com/ershovdan/BAF" target="_blank">
+                    <section class="baf">
+                        <img src="../../../static/img/software/ferrum_background.png" style="z-index: -100;">
+                    </section>
+                </a>
+            </section>
+        </section>
+
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+</body>
+</html>

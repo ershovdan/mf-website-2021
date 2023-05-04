@@ -1,0 +1,654 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About server</title>
+    <link rel="stylesheet" href="{% static '../static/css/about_css/server/main_server.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src="{% static '../static/js/about/about_server.js' %}"></script>
+</head>
+<body>
+<main>
+    {% include 'blocks/menu/main_menu.html' %}
+    <section class="main">
+        <div class="settings">
+            <div class="color_mode">
+                <p id="color_mode_p">Color mode</p>
+                <input id="color_mode_checkbox" type="checkbox">
+            </div>
+        </div>
+        <div class="available_status">
+            <div></div>
+            <p>SERVICE AVAILABLE</p>
+        </div>
+        <div class="cpu_perc_cont graph">
+            <canvas id="cpu_perc" class="cpu_perc" style="height: 30vh; width: 60vh;"></canvas>
+            <div class="period period_cpu_perc hover_default" id="period_cpu_perc">
+                <div class="t5m selected"><p>5m</p></div>
+                <div class="t15m"><p>15m</p></div>
+                <div class="t30m"><p>30m</p></div>
+                <div class="t1h"><p>1h</p></div>
+                <div class="t6h"><p>6h</p></div>
+                <div class="t24h"><p>24h</p></div>
+            </div>
+        </div>
+        <div class="cpu_freq_cont graph">
+            <canvas id="cpu_freq" class="cpu_freq" style="height: 30vh; width: 60vh;"></canvas>
+            <div class="period period_cpu_freq hover_default" id="period_cpu_freq">
+                <div class="t5m selected"><p>5m</p></div>
+                <div class="t15m"><p>15m</p></div>
+                <div class="t30m"><p>30m</p></div>
+                <div class="t1h"><p>1h</p></div>
+                <div class="t6h"><p>6h</p></div>
+                <div class="t24h"><p>24h</p></div>
+            </div>
+        </div>
+        <div class="ram_perc_cont graph">
+            <canvas id="ram_perc" class="ram_perc" style="height: 30vh; width: 60vh;"></canvas>
+            <div class="period period_ram_perc hover_default" id="period_ram_perc">
+                <div class="t5m selected"><p>5m</p></div>
+                <div class="t15m"><p>15m</p></div>
+                <div class="t30m"><p>30m</p></div>
+                <div class="t1h"><p>1h</p></div>
+                <div class="t6h"><p>6h</p></div>
+                <div class="t24h"><p>24h</p></div>
+            </div>
+        </div>
+    </section>
+    {% include 'blocks/footer/main_footer.html' %}
+</main>
+<div class="for_small">
+    <img src="../../static/img/smiles/pokerface_smile.png" alt="Your device is too small">
+    <p>Your device is too small!</p>
+</div>
+
+<script>
+    window.addEventListener("load", function (event) {
+        const ctx = document.getElementById('cpu_perc').getContext('2d');
+        const ctx2 = document.getElementById('cpu_freq').getContext('2d');
+        const ctx3 = document.getElementById('ram_perc').getContext('2d');
+
+
+        const color_mode_checkbox = document.getElementById('color_mode_checkbox')
+        const color_mode_p = document.getElementById('color_mode_p')
+
+        const period_cpu_perc = document.getElementsByClassName('period_cpu_perc')[0]
+        const period_cpu_freq = document.getElementsByClassName('period_cpu_freq')[0]
+        const period_ram_perc = document.getElementsByClassName('period_ram_perc')[0]
+
+        const default_color = '#606060'
+        const cpu_perc_color_const = '#f04343'
+        const cpu_freq_color_const = '#ff8f5c'
+        const ram_perc_color_const = '#5c83ff'
+
+        let cpu_perc_color = default_color
+        let cpu_freq_color = default_color
+        let ram_perc_color = default_color
+
+        let changes_true = 0
+        let changes_false = 0
+
+        let cpu_perc_period_state = '5m'
+        let cpu_freq_period_state = '5m'
+        let ram_perc_period_state = '5m'
+
+        function recreate_cpu_perc_charts() {
+            chart_cpu_perc = new Chart(ctx, {
+                type: 'line',
+                maintainAspectRatio: false,
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'CPU PERCENTAGE',
+                        data: [],
+                        fill: false,
+                        borderColor: cpu_perc_color,
+                    }]
+                },
+
+                options: {
+                    elements: {
+                        line: {
+                            tension: 0
+                        }
+                    },
+                    animation: {
+                        duration: 0
+                    },
+                    responsive: false,
+                    scales: {
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 10,
+                                stepValue: 5,
+                                max: 100
+                            },
+                        }]
+                    }
+                }
+            })
+        }
+
+        function recreate_cpu_freq_charts() {
+            chart_cpu_freq = new Chart(ctx2, {
+                type: 'line',
+                maintainAspectRatio: false,
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'CPU FREQUENCY',
+                        data: [],
+                        fill: false,
+                        borderColor: cpu_freq_color,
+                    }]
+                },
+
+                options: {
+                    elements: {
+                        line: {
+                            tension: 0
+                        }
+                    },
+                    animation: {
+                        duration: 0
+                    },
+                    responsive: false,
+                    scales: {
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 100,
+                                stepValue: 10,
+                                max: 3800
+                            },
+                        }]
+                    }
+                }
+            })
+        }
+
+        function recreate_ram_perc_charts() {
+            chart_ram_perc = new Chart(ctx3, {
+                type: 'line',
+                maintainAspectRatio: false,
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'RAM PERCENTAGE',
+                        data: [],
+                        fill: false,
+                        borderColor: ram_perc_color,
+                    }]
+                },
+
+                options: {
+                    elements: {
+                        line: {
+                            tension: 0
+                        }
+                    },
+                    animation: {
+                        duration: 0
+                    },
+                    responsive: false,
+                    scales: {
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 10,
+                                stepValue: 5,
+                                max: 100
+                            },
+                        }]
+                    }
+                }
+            })
+        }
+
+        function periodState() {
+            window.onclick = e => {
+                if ((e.target.parentNode == period_cpu_perc) || (e.target.parentNode.parentNode == period_cpu_perc)) {
+                    cpu_perc_period_state = e.target.innerText
+                    let childrenPeriod = period_cpu_perc.childNodes
+                    for (let i = 0; i < childrenPeriod.length; i++) {
+                        if (childrenPeriod[i].classList != undefined) {
+                            if (childrenPeriod[i].classList[0] == 't' + cpu_perc_period_state) {
+                                if (color_mode_checkbox.checked) {
+                                    for (let i = 0; i < childrenPeriod.length; i++) {
+                                        if (childrenPeriod[i].classList != undefined) {
+                                            childrenPeriod[i].classList.remove('cpu_perc_selected')
+                                        }
+                                    }
+                                    childrenPeriod[i].classList.add('cpu_perc_selected')
+                                } else {
+                                    for (let i = 0; i < childrenPeriod.length; i++) {
+                                        if (childrenPeriod[i].classList != undefined) {
+                                            childrenPeriod[i].classList.remove('selected')
+                                        }
+                                    }
+                                    childrenPeriod[i].classList.add('selected')
+                                }
+                            }
+                        }
+                    }
+                } else if ((e.target.parentNode == period_cpu_freq) || (e.target.parentNode.parentNode == period_cpu_freq)) {
+                    cpu_freq_period_state = e.target.innerText
+                    let childrenPeriod = period_cpu_freq.childNodes
+                    for (let i = 0; i < childrenPeriod.length; i++) {
+                        if (childrenPeriod[i].classList != undefined) {
+                            if (childrenPeriod[i].classList[0] == 't' + cpu_freq_period_state) {
+                                if (color_mode_checkbox.checked) {
+                                    for (let i = 0; i < childrenPeriod.length; i++) {
+                                        if (childrenPeriod[i].classList != undefined) {
+                                            childrenPeriod[i].classList.remove('cpu_freq_selected')
+                                        }
+                                    }
+                                    childrenPeriod[i].classList.add('cpu_freq_selected')
+                                } else {
+                                    for (let i = 0; i < childrenPeriod.length; i++) {
+                                        if (childrenPeriod[i].classList != undefined) {
+                                            childrenPeriod[i].classList.remove('selected')
+                                        }
+                                    }
+                                    childrenPeriod[i].classList.add('selected')
+                                }
+                            }
+                        }
+                    }
+                } else if ((e.target.parentNode == period_ram_perc) || (e.target.parentNode.parentNode == period_ram_perc)) {
+                    ram_perc_period_state = e.target.innerText
+                    let childrenPeriod = period_ram_perc.childNodes
+                    for (let i = 0; i < childrenPeriod.length; i++) {
+                        if (childrenPeriod[i].classList != undefined) {
+                            if (childrenPeriod[i].classList[0] == 't' + ram_perc_period_state) {
+                                if (color_mode_checkbox.checked) {
+                                    for (let i = 0; i < childrenPeriod.length; i++) {
+                                        if (childrenPeriod[i].classList != undefined) {
+                                            childrenPeriod[i].classList.remove('ram_perc_selected')
+                                        }
+                                    }
+                                    childrenPeriod[i].classList.add('ram_perc_selected')
+                                } else {
+                                    for (let i = 0; i < childrenPeriod.length; i++) {
+                                        if (childrenPeriod[i].classList != undefined) {
+                                            childrenPeriod[i].classList.remove('selected')
+                                        }
+                                    }
+                                    childrenPeriod[i].classList.add('selected')
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            setTimeout(periodState, 50)
+        }
+
+        setTimeout(periodState, 50)
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        let colorModeFromCookie = getCookie('color_mode')
+
+        if (colorModeFromCookie == 'true') {
+            color_mode_checkbox.checked = true
+        }
+
+
+        function checkboxes() {
+            let color_mode_checkbox_state
+
+            if (color_mode_checkbox.checked) {
+                changes_false = 0
+                changes_true++
+
+                if (changes_true < 2) {
+                    document.cookie = 'color_mode = true'
+
+                    cpu_perc_color = cpu_perc_color_const
+                    cpu_freq_color = cpu_freq_color_const
+                    ram_perc_color = ram_perc_color_const
+
+                    period_cpu_perc.classList.remove('hover_default')
+                    period_cpu_perc.classList.add('cpu_perc_hover')
+
+                    period_cpu_freq.classList.remove('hover_default')
+                    period_cpu_freq.classList.add('cpu_freq_hover')
+
+                    period_ram_perc.classList.remove('hover_default')
+                    period_ram_perc.classList.add('ram_perc_hover')
+
+                    let childrenPeriod = period_cpu_perc.childNodes
+                    for (let i = 0; i < childrenPeriod.length; i++) {
+                        if (childrenPeriod[i].classList != undefined) {
+                            if (childrenPeriod[i].classList[0] == 't' + cpu_perc_period_state) {
+                                childrenPeriod[i].classList.add('cpu_perc_selected')
+                                childrenPeriod[i].classList.remove('selected')
+                            }
+                        }
+                    }
+
+                    childrenPeriod = period_cpu_freq.childNodes
+                    for (let i = 0; i < childrenPeriod.length; i++) {
+                        if (childrenPeriod[i].classList != undefined) {
+                            if (childrenPeriod[i].classList[0] == 't' + cpu_freq_period_state) {
+                                childrenPeriod[i].classList.add('cpu_freq_selected')
+                                childrenPeriod[i].classList.remove('selected')
+                            }
+                        }
+                    }
+
+                    childrenPeriod = period_ram_perc.childNodes
+                    for (let i = 0; i < childrenPeriod.length; i++) {
+                        if (childrenPeriod[i].classList != undefined) {
+                            if (childrenPeriod[i].classList[0] == 't' + ram_perc_period_state) {
+                                childrenPeriod[i].classList.add('ram_perc_selected')
+                                childrenPeriod[i].classList.remove('selected')
+                            }
+                        }
+                    }
+
+                    let children = period_cpu_perc.childNodes
+                    for (let i = 1; i < 12; i += 2) {
+                        children[i].style.background = cpu_perc_color
+
+                    }
+                    children = period_cpu_freq.childNodes
+                    for (let i = 1; i < 12; i += 2) {
+                        children[i].style.background = cpu_freq_color
+                    }
+                    children = period_ram_perc.childNodes
+                    for (let i = 1; i < 12; i += 2) {
+                        children[i].style.background = ram_perc_color
+                    }
+
+                    recreate_cpu_perc_charts()
+                    recreate_cpu_freq_charts()
+                    recreate_ram_perc_charts()
+                }
+
+                color_mode_p.style.background = 'linear-gradient(90deg, #DD1818 0%, #182DDD 70%, #182DDD 100%)'
+                color_mode_p.style.webkitBackgroundClip = 'text'
+                color_mode_p.style.webkitTextFillColor = 'transparent'
+
+
+            } else {
+                changes_true = 0
+                changes_false++
+                if (changes_false < 2) {
+                    document.cookie = 'color_mode = false'
+
+                    cpu_perc_color = default_color
+                    cpu_freq_color = default_color
+                    ram_perc_color = default_color
+
+                    period_cpu_perc.classList.remove('cpu_perc_hover')
+                    period_cpu_perc.classList.add('hover_default')
+
+                    period_cpu_freq.classList.remove('cpu_freq_hover')
+                    period_cpu_freq.classList.add('hover_default')
+
+                    period_ram_perc.classList.remove('ram_perc_hover')
+                    period_ram_perc.classList.add('hover_default')
+
+                    let childrenPeriod = period_cpu_perc.childNodes
+                    for (let i = 0; i < childrenPeriod.length; i++) {
+                        if (childrenPeriod[i].classList != undefined) {
+                            if (childrenPeriod[i].classList[0] == 't' + cpu_perc_period_state) {
+                                childrenPeriod[i].classList.remove('cpu_perc_selected')
+                                childrenPeriod[i].classList.add('selected')
+                            }
+                        }
+                    }
+
+                    childrenPeriod = period_cpu_freq.childNodes
+                    for (let i = 0; i < childrenPeriod.length; i++) {
+                        if (childrenPeriod[i].classList != undefined) {
+                            if (childrenPeriod[i].classList[0] == 't' + cpu_freq_period_state) {
+                                childrenPeriod[i].classList.remove('cpu_freq_selected')
+                                childrenPeriod[i].classList.add('selected')
+                            }
+                        }
+                    }
+
+                    childrenPeriod = period_ram_perc.childNodes
+                    for (let i = 0; i < childrenPeriod.length; i++) {
+                        if (childrenPeriod[i].classList != undefined) {
+                            if (childrenPeriod[i].classList[0] == 't' + ram_perc_period_state) {
+                                childrenPeriod[i].classList.remove('ram_perc_selected')
+                                childrenPeriod[i].classList.add('selected')
+                            }
+                        }
+                    }
+
+                    let children = period_cpu_perc.childNodes
+                    for (let i = 1; i < 12; i += 2) {
+                        children[i].style.background = default_color
+                    }
+                    children = period_cpu_freq.childNodes
+                    for (let i = 1; i < 12; i += 2) {
+                        children[i].style.background = default_color
+                    }
+                    children = period_ram_perc.childNodes
+                    for (let i = 1; i < 12; i += 2) {
+                        children[i].style.background = default_color
+                    }
+
+                    recreate_cpu_perc_charts()
+                    recreate_cpu_freq_charts()
+                    recreate_ram_perc_charts()
+                }
+
+                color_mode_p.style.background = 'linear-gradient(90deg, #000000 0%, #000000 50%, #000000 100%)'
+                color_mode_p.style.webkitBackgroundClip = 'text'
+                color_mode_p.style.webkitTextFillColor = 'transparent'
+
+                cpu_perc_color = default_color
+            }
+
+            setTimeout(checkboxes, 10)
+        }
+
+        setTimeout(checkboxes, 10)
+
+        let chart_cpu_perc = new Chart(ctx, {
+            type: 'line',
+            maintainAspectRatio: false,
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'CPU PERCENTAGE',
+                    data: [],
+                    fill: false,
+                    borderColor: cpu_perc_color,
+                }]
+            },
+
+            options: {
+                elements: {
+                    line: {
+                        tension: 0
+                    }
+                },
+                animation: {
+                    duration: 0
+                },
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 10,
+                            stepValue: 5,
+                            max: 100
+                        },
+                    }]
+                }
+            }
+        })
+
+        let chart_cpu_freq = new Chart(ctx2, {
+            type: 'line',
+            maintainAspectRatio: false,
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'CPU FREQUENCY',
+                    data: [],
+                    fill: false,
+                    borderColor: "#606060",
+                }]
+            },
+
+            options: {
+                elements: {
+                    line: {
+                        tension: 0
+                    }
+                },
+                animation: {
+                    duration: 0
+                },
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 100,
+                            stepValue: 10,
+                            max: 3800
+                        },
+                    }]
+                }
+            }
+        })
+
+        let chart_ram_perc = new Chart(ctx3, {
+            type: 'line',
+            maintainAspectRatio: false,
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'RAM PERCENTAGE',
+                    data: [],
+                    fill: false,
+                    borderColor: "#606060",
+                }]
+            },
+
+            options: {
+                elements: {
+                    line: {
+                        tension: 0
+                    }
+                },
+                animation: {
+                    duration: 0
+                },
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 10,
+                            stepValue: 5,
+                            max: 100
+                        },
+                    }]
+                }
+            }
+        })
+
+        const APIurl = 'https://modernface.space/about/server-api/?format=json'
+
+        function api_cpu_perc() {
+            fetch(APIurl)
+                .then(res => res.json())
+                .then((out) => {
+                    function cpu_perc() {
+                        let arrayWithTime = out[cpu_perc_period_state]
+
+                        chart_cpu_perc.data.datasets[0].data = perc = arrayWithTime['cpu']
+                        chart_cpu_perc.data.labels = time = arrayWithTime['time']
+
+                        chart_cpu_perc.update()
+                    }
+
+                    cpu_perc()
+                })
+                .catch(err => {
+                    throw err
+                });
+
+            setTimeout(api_cpu_perc, 400)
+        }
+
+        setTimeout(api_cpu_perc, 400)
+
+        function api_cpu_freq() {
+            fetch(APIurl)
+                .then(res => res.json())
+                .then((out) => {
+                    function cpu_freq() {
+                        let arrayWithTime = out[cpu_freq_period_state]
+
+                        chart_cpu_freq.data.datasets[0].data = freq = arrayWithTime['cpu_freq']
+                        chart_cpu_freq.data.labels = arrayWithTime['time']
+
+                        chart_cpu_freq.update()
+                    }
+
+                    cpu_freq()
+                })
+                .catch(err => {
+                    throw err
+                });
+
+            setTimeout(api_cpu_freq, 400)
+        }
+
+        setTimeout(api_cpu_freq, 400)
+
+        function api_ram_perc() {
+            fetch(APIurl)
+                .then(res => res.json())
+                .then((out) => {
+
+                    function ram_perc() {
+                        let arrayWithTime = out[ram_perc_period_state]
+
+                        chart_ram_perc.data.datasets[0].data = arrayWithTime['ram']
+                        chart_ram_perc.data.labels = arrayWithTime['time']
+
+                        chart_ram_perc.update()
+                    }
+
+
+                    ram_perc()
+                })
+                .catch(err => {
+                    throw err
+                });
+
+            setTimeout(api_ram_perc, 400)
+        }
+
+        setTimeout(api_ram_perc, 400)
+
+    }, false)
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS:GO</title>
+</head>
+<script>
+    window.addEventListener("load",function(event) {
+        const bg_video = document.getElementById("bg_video")
+        const cobalt_h2 = document.getElementById("cobalt_h2")
+        const light_1 = document.getElementById("light_1")
+        const light_2 = document.getElementById("light_2")
+
+        let deg = 0
+        let time = 0
+
+        function update() {
+            bg_video.style.width = window.innerHeight * 0.7 + "px"
+
+            cobalt_h2.style.background = "-webkit-linear-gradient(" + deg + "deg, rgba(88,156,244,1) 0%, rgba(255,51,0,1) 100%)"
+            cobalt_h2.style.webkitBackgroundClip = "text"
+
+
+            console.log((bg_video.offsetWidth))
+
+            bg_video.style.left = (window.innerWidth - bg_video.offsetWidth) / 2 + "px"
+            bg_video.style.top = (window.innerHeight - bg_video.offsetHeight) / 2 + "px"
+
+            deg += 5
+
+            if (deg >= 360) {
+                deg = 0
+            }
+
+            time++
+
+            if (time >= 20) {
+                if (light_1.style.opacity < 1) {
+                    light_1.style.opacity = time / 250
+                    light_2.style.opacity = time / 250
+                }
+            }
+
+            setTimeout(update, 50)
+        }
+
+        setTimeout(update, 50)
+    },false);
+</script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    @media only screen and (min-device-width: 1024px)  and (orientation: landscape) {
+        body {
+            overflow-x: hidden;
+            background-color: white;
+        }
+
+        .for_small {
+            display: none;
+        }
+
+        .main_sec {
+            background-color: #040305;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cobalt {
+            width: 30vw;
+            height: 10vh;
+            margin-top: 40vh;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .cobalt a {
+            text-decoration: none;
+        }
+
+        .cobalt h2 {
+            text-align: center;
+            font-family: Verdana, 'sans-serif';
+            font-size: 5em;
+            background: -webkit-linear-gradient(90deg, rgba(88,156,244,1) 0%, rgba(255,51,0,1) 100%);
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+        }
+
+        .bg_video {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .light_1 {
+            height: 100vh;
+            width: 10px;
+            position: absolute;
+            box-shadow: 0 0 30vw 10px #ff5900;
+            top: 54px;
+            left: -10px;
+            opacity: 0;
+        }
+
+        .light_2 {
+            height: 100vh;
+            width: 10px;
+            position: absolute;
+            box-shadow: 0 0 30vw 10px #ff5900;
+            top: 54px;
+            left: calc(100vw + 10px);
+            opacity: 0;
+        }
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+        body {
+            overflow-x: hidden;
+        }
+
+        .for_small {
+            display: none;
+        }
+    }
+</style>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <section class="main_sec">
+            <div class="cobalt">
+                <a href="/csgo/cobalt/"><h2 id="cobalt_h2">COBALT</h2></a>
+            </div>
+        </section>
+
+        <video id="bg_video" class="bg_video" muted autoplay loop>
+            <source src="../../static/video/csgo/circle.mp4" type="video/mp4">
+        </video>
+
+        <div id="light_1" class="light_1"></div>
+        <div id="light_2" class="light_2"></div>
+
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p class="for_small_p">Your device is too small!</p>
+    </div>
+</body>
+</html>

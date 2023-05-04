@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Success</title>
+</head>
+<style>
+    .main_div {
+        font-family: Verdana, 'sans-serif';
+        text-align: center;
+    }
+
+    .main_div a div {
+        background-color: black;
+        width: min-content;
+        padding: 5px 70px 5px 70px;
+        border-radius: 10px;
+    }
+
+    .main_div a div:hover {
+        background-color: #EEEEEE;
+        color: black;
+        transition: .5s;
+    }
+
+    .main_div a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }
+
+    .main_div div {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<body>
+    <div class="main_div">
+        <h1>SUCCESS</h1>
+        <h3>PLEASE, CHECK YOUR EMAIL</h3>
+        <div>
+            <a class="but_cont" href="/csgo/cobalt/"><div><p>GO BACK</p></div></a>
+        </div>
+    </div>
+</body>
+</html>

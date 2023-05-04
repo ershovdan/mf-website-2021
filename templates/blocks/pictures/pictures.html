@@ -1,0 +1,59 @@
+<section class="painting_main">
+    <img class="painting painting_main" id="painting">
+    <div class="painting_discr_cont">
+        <p style="font-family: Verdana, 'sans-serif'; font-size: 1.3em; margin-left: 5px" id="discr"></p>
+        <p><a target="_blank" href="" class="a_read_more" id="a_read_more">read more</a></p>
+    </div>
+</section>
+
+<style>
+    .a_read_more {
+        text-decoration: none;
+        color: black;
+        transition: 0.3s;
+        font-size: 1.3em;
+        font-weight: bold;
+        font-family: Verdana, 'sans-serif';
+        float: right;
+        margin-right: 8px;
+    }
+
+    .painting_discr_cont {
+        display: grid;
+        grid-template-columns: 1fr 11.7em;
+        margin-right: 8px;
+    }
+
+</style>
+
+<script>
+    window.addEventListener("load", function(event) {
+        const painting = document.getElementById('painting')
+        const discr = document.getElementById('discr')
+        const a_read_more = document.getElementById('a_read_more')
+
+        let listOfPainting = ['Gliese 876 d, 15.2 light-years from the Earth', 'Mercury, 1st from the Sun', 'Venus, 2nd from the Sun', 'Mars, 4th from the Sun', 'Uranus, 7th from the Sun',
+            'Jupiter, 5th from the Sun', 'Saturn, 6th from the Sun', 'Neptune, 8th from the Sun', 'Pluto, dwarf planet in the Kuiper belt', 'Makemake, dwarf planet in the Kuiper belt',
+            'Ceres, largest object in the main asteroid belt', 'Haumea, dwarf planet in the Kuiper belt', 'Eris, dwarf planet in the scattered disc', 'Phobos, natural satellite of Mars',
+            'Deimos, natural satellite of Mars', 'Io, third-largest of the four Galilean moons of the Jupiter', 'Europa, fourth-largest of the four Galilean moons of the Jupiter',
+            'Callisto, second-largest of the four Galilean moons of the Jupiter', 'Ganymede, first-largest of the four Galilean moon of the Jupiter',
+            'Amalthea, largest of the inner satellites of Jupiter']
+
+        let urlOfPainting = ['https://en.wikipedia.org/wiki/Gliese_876_d', 'https://en.wikipedia.org/wiki/Mercury_(planet)', 'https://en.wikipedia.org/wiki/Venus',
+            'https://en.wikipedia.org/wiki/Mars', 'https://en.wikipedia.org/wiki/Uranus', 'https://en.wikipedia.org/wiki/Jupiter', 'https://en.wikipedia.org/wiki/Saturn',
+            'https://en.wikipedia.org/wiki/Neptune', 'https://en.wikipedia.org/wiki/Pluto', 'https://en.wikipedia.org/wiki/Makemake',
+            'https://en.wikipedia.org/wiki/Ceres_(dwarf_planet)', 'https://en.wikipedia.org/wiki/Haumea', 'https://en.wikipedia.org/wiki/Eris_(dwarf_planet)',
+            'https://en.wikipedia.org/wiki/Phobos_(moon)', 'https://en.wikipedia.org/wiki/Deimos_(moon)', 'https://en.wikipedia.org/wiki/Io_(moon)',
+            'https://en.wikipedia.org/wiki/Europa_(moon)', 'https://en.wikipedia.org/wiki/Callisto_(moon)', 'https://en.wikipedia.org/wiki/Ganymede_(moon)',
+            'https://en.wikipedia.org/wiki/Amalthea_(moon)']
+
+        let randomElement = Math.floor(Math.random() * listOfPainting.length)
+
+        discr.innerHTML = listOfPainting[randomElement]
+
+        painting.src = '../../../static/img/painting/' + listOfPainting[randomElement] + '.jpg'
+        a_read_more.href = urlOfPainting[randomElement]
+
+    },false);
+</script>
+

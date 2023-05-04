@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="{% static '../static/css/contacts_css/contacts.css' %}">
+    <script type="text/javascript" src="{% static '../static/js/contacts/contacts.js' %}"></script>
+</head>
+<body>
+<main>
+    {% include 'blocks/menu/main_menu.html' %}
+    <h1 class="contacts_h1">CONTACTS</h1>
+    <section class="main_section">
+        <div class="rules">
+            <p>Here you can ask a question about this website or tell about bugs.</p>
+            <p>Title field is not required, but it's better to fill it. Message field is required, please write
+               correctly and expound the problem in details and logical.</p>
+            <p>In bug report you should write about:</p>
+            <ul>
+                <li>name and version of your browser</li>
+                <li>a place where you found it</li>
+                <li>essence of bug</li>
+                <li>conditions with whom you got it</li>
+                <li>select bug seriousness</li>
+            </ul>
+        </div>
+        <form class="form" action="" method="POST">
+            {% csrf_token %}
+            <div class="title_div form_div">
+                <h2>TITLE</h2>
+                <input class="form_title" type="text" name="title">
+            </div>
+            <div class="text_div form_div">
+                <h2>MESSAGE</h2>
+                <textarea class="form_text" required name="text"></textarea>
+            </div>
+            <div class="is_report_div">
+                <input id="is_report" class="form_is_report" type="checkbox" name="is_report" value="is_report">
+                <p>BUG REPORT</p>
+            </div>
+            <div id="p_bug_type" class="bug_type_div">
+                <p class="bug_type_title">BUG SERIOUSNESS</p>
+                <div class="bug_type_div_1">
+                    <input id="bug_type1" type="radio" name="bug_type" value="Minor">
+                    <p>MINOR</p>
+                </div>
+                <div class="bug_type_div_2">
+                    <input id="bug_type2" type="radio" name="bug_type" value="Middle">
+                    <p>MIDDLE</p>
+                </div>
+                <div class="bug_type_div_3">
+                    <input id="bug_type3" type="radio" name="bug_type" value="Critical">
+                    <p>CRITICAL</p>
+                </div>
+            </div>
+            <input class="form_submit form_submit_hover" id="submit" type="submit" value="SEND">
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'warning'%}
+                    <p{% if message.tags %} class="message" {% endif %}>{{ message }} <a href="/accounts/login/">Go</a></p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </section>
+    {% include 'blocks/footer/main_footer.html' %}
+</main>
+
+
+<div class="for_small">
+    <img src="../../static/img/smiles/pokerface_smile.png">
+    <p>Your device is too small!</p>
+</div>
+</body>
+</html>

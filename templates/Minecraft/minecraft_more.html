@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MfCraft more</title>
+    <link rel="stylesheet" href="{% static '../static/css/minecraft_css/minecraft_more_css.css' %}">
+</head>
+<body>
+   <main>
+        <nav class="main_nav">
+            <a href="/">
+                <div class="main_nav_logo">
+                    <img src="../../static/img/logo/mf/mf.png">
+                </div>
+            </a>
+
+            <ul class="main_nav_ul">
+                <li>
+                    <a href="/about"><div class="main_nav_ul_div"><p>ABOUT</p></div></a>
+                </li>
+                <li>
+                    <a href="/news"><div class="main_nav_ul_div"><p>NEWS</p></div></a>
+                </li>
+                <li>
+                    <a href="/contacts"><div class="main_nav_ul_div"><p>CONTACTS</p></div></a>
+                </li>
+                <li>
+                    <a href="/minecraft"><div class="main_nav_ul_div"><p class="minecraft">MINECRAFT</p></div></a>
+                </li>
+                <li>
+                    <a href="/other"><div class="main_nav_ul_div"><p>OTHER</p></div></a>
+                </li>
+            </ul>
+        </nav>
+
+        <section class="main_nav_back"></section>
+
+       <div style="height: 100vw;"></div>
+
+        <section class="main_section_footer">
+            <section class="main_container_footer">
+                <p class="copyright_footer"><span class="span_copy">©</span> 2021 Modern Face. All Rights Reserved.</p>
+                <ul class="main_ul_footer">
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/news">News</a></li>
+                    <li><a href="/contacts">Contacts</a></li>
+                    <li><a href="/minecraft">Minecraft</a></li>
+                    <li><a href="/other">Other</a></li>
+                    <li><a href="/EULA">EULA</a></li>
+                </ul>
+            </section>
+        </section>
+
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+</body>
+</html>

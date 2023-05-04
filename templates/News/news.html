@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+    <link rel="stylesheet" href="{% static '../static/css/news_css/news.css' %}">
+    <script type="text/javascript" src="{% static '../static/js/news/sort.js' %}"></script>
+</head>
+<body>
+<main>
+    {% include 'blocks/menu/main_menu.html' %}
+
+    <h1 class="news_1">NEWS</h1>
+    <div class="sort">
+        <select size="1" id="sort_select">
+            <option value="1">All</option>
+            <option value="2">Updates</option>
+            <option value="3">Products</option>
+            <option value="4">Server work</option>
+        </select>
+        <a id="sort_button">
+            <div><p>FILTER</p></div>
+        </a>
+    </div>
+
+
+    <section class="news_zone">
+        {% for key, value in data.items %}
+            <div class="news_post" id="post">
+                <h1>{{ value.title }}</h1>
+                <p class="news_post_contnet">{{ value.content }}</p>
+                <div class="news_post_author">
+                    <p class="news_post_author1">{{ value.day }}th {{ value.mounth }} {{ value.year }}</p>
+                    <p class="news_post_author2">by {{ value.author }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        <h2 class="null_posts" id="null_posts">News with this filter not found.</h2>
+    </section>
+
+
+</main>
+</body>
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,382 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cobalt</title>
+</head>
+<script>
+    window.addEventListener("load",function(event) {
+        const black_screen = document.getElementById("black_screen")
+        const ak47_img = document.getElementById("ak47_img")
+        const learn_more = document.getElementById("learn_more")
+        const sec4_img = document.getElementById("sec4_img")
+        const control_button1 = document.getElementById("control_button1")
+        const control_button2 = document.getElementById("control_button2")
+        const control_button3 = document.getElementById("control_button3")
+
+        window.scrollTo(0, 0)
+
+        ak47_img.style.left = (window.innerWidth - ak47_img.offsetWidth) / 2 + "px"
+        ak47_img.style.top = (window.innerHeight - ak47_img.offsetHeight) / 2 + "px"
+
+        control_button1.style.backgroundColor = "#ACA4A4"
+
+        sec4_img.style.opacity = 1
+
+        black_screen.style.height = window.innerHeight * 2 - 54 * 2 + "px"
+
+        ak47_img.style.opacity = 1
+
+        function change_sec4_img_2 () {
+            sec4_img.src = "../../static/img/cs_go/gal" + "2" + ".jpg"
+            control_button2.style.backgroundColor = "#ACA4A4"
+            control_button1.style.backgroundColor = "#FFFFFF"
+            control_button3.style.backgroundColor = "#FFFFFF"
+        }
+
+        function change_sec4_img_1 () {
+            sec4_img.src = "../../static/img/cs_go/gal" + "1" + ".jpg"
+            control_button1.style.backgroundColor = "#ACA4A4"
+            control_button2.style.backgroundColor = "#FFFFFF"
+            control_button3.style.backgroundColor = "#FFFFFF"
+        }
+
+        function change_sec4_img_3 () {
+            sec4_img.src = "../../static/img/cs_go/gal" + "3" + ".jpg"
+            control_button3.style.backgroundColor = "#ACA4A4"
+            control_button1.style.backgroundColor = "#FFFFFF"
+            control_button2.style.backgroundColor = "#FFFFFF"
+        }
+
+        control_button1.addEventListener("click", change_sec4_img_1)
+        control_button2.addEventListener("click", change_sec4_img_2)
+        control_button3.addEventListener("click", change_sec4_img_3)
+
+        function go_down () {
+            window.scrollTo(0, window.innerHeight + 54)
+        }
+
+        learn_more.addEventListener("click", go_down)
+
+        function op_ak47() {
+            if (ak47_img.style.opacity > 0) {
+                ak47_img.style.opacity -= 0.01
+            } else {
+                ak47_img.remove()
+            }
+
+            setTimeout(op_ak47, 1)
+        }
+
+        setTimeout(op_ak47, 500)
+
+        function black_scr_out() {
+            black_screen.style.height = black_screen.offsetHeight - 10 + "px"
+
+            if (black_screen.offsetHeight > 0) {
+
+            } else {
+                black_screen.remove()
+            }
+
+            setTimeout(black_scr_out, 0.25)
+        }
+
+        setTimeout(black_scr_out, 700)
+
+    },false);
+</script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    @font-face {font-family: Steelfish; src: url('../../static/fonts/steelfish_eb.ttf');}
+
+    @media only screen and (min-device-width: 1024px)  and (orientation: landscape) {
+        body {
+            overflow-x: hidden;
+            background-color: white;
+        }
+
+        .for_small {
+            display: none;
+        }
+
+        .sec1 {
+            height: calc(100vh - 54px);
+            background-color: #0B0B0B;
+            padding: 50px;
+            background-image: url("../../static/img/cs_go/cs_bg.png");
+        }
+
+        .sec2 {
+            height: calc(100vh - 54px);
+            background-color: black;
+        }
+
+        .black_screen {
+            position: absolute;
+            top: 54px;
+            left: 0;
+            background-color: #0B0B0B;
+            width: 100vw;
+            z-index: 100;
+            height: calc((100vh - 54px) * 2);
+        }
+
+        .ak47_img {
+            height: 400px;
+            z-index: 200;
+            position: absolute;
+            opacity: 0;
+        }
+
+        .sec1 h1 {
+            font-family: Steelfish, 'sans-serif';
+            font-size: 7em;
+            text-align: center;
+            color: white;
+        }
+
+        .sec1 h2 {
+            font-family: Steelfish, 'sans-serif';
+            font-size: 5em;
+            text-align: center;
+            color: white;
+        }
+
+        .sec1 ul {
+            color: white;
+            font-family: Verdana, 'sans-serif';
+            text-align: center;
+            font-size: 1.7em;
+            list-style-type: none;
+        }
+
+        .sec1 ul li {
+            margin-top: 10px;
+        }
+
+        .sec1 p {
+            margin-top: 50px;
+            color: white;
+            font-family: Verdana, 'sans-serif';
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .learn_more {
+            margin-top: 15vh;
+            background-color: white;
+            width: 10vw;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 15px;
+            border-radius: 9px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .learn_more:hover .learn_more_p{
+            color: white;
+            transition: .5s;
+        }
+
+        .learn_more:hover {
+            background-color: black;
+            cursor: pointer;
+            transition: .5s;
+        }
+
+        .learn_more p {
+            font-weight: bold;
+            font-family: Verdana, 'sans-serif';
+            font-size: 1.5em;
+            color: black;
+            margin-top: 0;
+        }
+
+        .buy_cont {
+            width: 70vw;
+            margin-left: auto;
+            margin-right: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            font-family: Verdana, 'sans-serif';
+            color: white;
+            column-gap: 5vw;
+            row-gap: 3vw;
+            text-align: center;
+            padding: 100px;
+        }
+
+        .buy_cont a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .buy_div {
+            border: white 5px solid;
+            border-radius: 15px;
+            padding: 10px;
+            height: 7em;
+        }
+
+        .buy_div h3 {
+            font-size: 2em;
+        }
+
+        .buy_div p {
+            margin-top: 10px;
+        }
+
+        .buy_div:hover {
+            background-color: white;
+            cursor: pointer;
+            transition: .5s;
+            color: black;
+        }
+
+        .sec4 {
+            padding: 5vw;
+            background-color: #0B0B0B;
+        }
+
+        .sec4 img {
+            width: 90vw;
+        }
+
+        .control_button {
+            height: 30px;
+            width: 30px;
+            border-radius: 15px;
+            background-color: white;
+        }
+
+        .control {
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            width: 150px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .control_button:hover {
+            cursor: pointer;
+        }
+
+        .one_key {
+            font-family: Verdana, 'sans-serif';
+            grid-column: 1 / 5;
+            font-size: 3em;
+        }
+
+        .sec2_img_cont {
+            grid-column: 1 / 5;
+        }
+
+        .sec2_img_cont img {
+            height: 50vh;
+        }
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+        body {
+            overflow-x: hidden;
+        }
+
+        .for_small {
+            display: none;
+        }
+    }
+</style>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <section class="main_sec">
+            <div class="black_screen" id="black_screen"></div>
+            <img id="ak47_img" class="ak47_img" src="../../static/img/cs_go/ak47.jpg">
+
+            <div class="sec1">
+                <h1>FULL EXTERNAL UNDETECTABLE CHEAT</h1>
+                <h2>WANNA PLAY EASILY? COBALT MADE FOR YOU</h2>
+                <p>FEATURES:</p>
+                <ul>
+                    <li>Aim bot</li>
+                    <li>Trigger bot</li>
+                    <li>RCS</li>
+                    <li>Customizable WH</li>
+                    <li>Chams</li>
+                    <li>Radar</li>
+                    <li>Noflash</li>
+                    <li>Bunnyhop</li>
+                </ul>
+                <div class="learn_more" id="learn_more">
+                    <p class="learn_more_p">LEARN MORE</p>
+                </div>
+            </div>
+            <div class="sec2">
+                <div class="buy_cont">
+                    <a href="/csgo/cobalt/pay_r30/">
+                        <div class="buy_div">
+                            <h3>30 DAYS</h3>
+                            <p>all features included</p>
+                            <p>99₽ (include taxes)</p>
+                        </div>
+                    </a>
+                    <a href="/csgo/cobalt/pay_d30/">
+                        <div class="buy_div">
+                            <h3>30 DAYS</h3>
+                            <p>all features included</p>
+                            <p>1.5$ (include taxes)</p>
+                        </div>
+                    </a>
+                    <a href="/csgo/cobalt/pay_r90/">
+                        <div class="buy_div">
+                            <h3>90 DAYS</h3>
+                            <p>all features included</p>
+                            <p>249₽ (include taxes)</p>
+                        </div>
+                    </a>
+                    <a href="/csgo/cobalt/pay_d90/">
+                        <div class="buy_div">
+                            <h3>90 DAYS</h3>
+                            <p>all features included</p>
+                            <p>3.99$ (include taxes)</p>
+                        </div>
+                    </a>
+                    <h3 class="one_key">ONE KEY ONE ACTIVATION MANY WINS</h3>
+                    <div class="sec2_img_cont">
+                    <img src="../../static/img/cs_go/abstr1.gif">
+                    </div>
+                </div>
+            </div>
+            <div class="sec3">
+
+            </div>
+            <div class="sec4">
+                <img id="sec4_img" src="../../static/img/cs_go/gal1.jpg">
+                <div class="control">
+                    <div class="control_button" id="control_button1"></div>
+                    <div class="control_button" id="control_button2"></div>
+                    <div class="control_button" id="control_button3"></div>
+                </div>
+            </div>
+        </section>
+
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p class="for_small_p">Your device is too small!</p>
+    </div>
+</body>
+</html>

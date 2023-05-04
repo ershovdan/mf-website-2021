@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@media screen, (min-width: 1024px) {
+    .for_small {
+        display: none;
+    }
+
+    body {
+        overflow: hidden;
+        background-color: black;
+    }
+
+    .main_frame {
+        top: -5px;
+        left: -5px;
+        width: calc(100% - 4px);
+        height: calc(100vh - 4px);
+    }
+}
+
+@media not screen, (max-width: 1023px) {
+    .main_nav {
+        display: none;
+    }
+    .main_nav_back {
+        display: none;
+    }
+}

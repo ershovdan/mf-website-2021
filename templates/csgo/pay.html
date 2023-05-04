@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay</title>
+</head>
+<style>
+    .main_div {
+        margin-top: 50px;
+        font-family: Verdana, 'sans-serif';
+    }
+
+    .main_div a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }
+
+    .main_div a div {
+        background-color: black;
+        width: min-content;
+        padding: 5px 70px 5px 70px;
+        border-radius: 10px;
+    }
+
+    .main_div a div:hover {
+        background-color: #EEEEEE;
+        color: black;
+        transition: .5s;
+    }
+
+    .cau {
+        color: red;
+        text-align: center;
+    }
+
+    .but_cont {
+        display: flex;
+        margin-top: 50px;
+        justify-content: center;
+    }
+</style>
+<body>
+    <div class="main_div">
+        <p class="cau">CAUTION! You will have only one activation.</p>
+        <div>
+            <a class="but_cont" href="{{ url }}"><div><p>BUY</p></div></a>
+        </div>
+    </div>
+</body>
+</html>

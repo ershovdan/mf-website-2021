@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit profile</title>
+    <link rel="stylesheet" href="{% static '../static/css/accounts_css/profile/edit_profile_css.css' %}">
+</head>
+<body>
+    <main>
+        {% include 'blocks/menu/main_menu.html' %}
+
+        <form class="form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="for_first_column">
+                <p>Username</p>
+                <input required minlength="3" maxlength="50" class="username" type="text" name="username" value="{{ username }}">
+                <a href="/accounts/reset_password_send/" class="reset_password" disabled=""><div><p>Reset password</p></div></a>
+            </div>
+            <div class="for_first_column">
+                <p>E-mail</p>
+                <input required class="email" type="email" name="email" value="{{ email }}">
+            </div>
+            <div class="for_first_column">
+                <p>Phone number</p>
+                <input minlength="12" maxlength="12" class="phone" type="text" name="phone" value="{{ phone }}" placeholder="example: +12223334455">
+            </div>
+            <div class="for_first_column">
+                <p>First name</p>
+                <input class="first_name" type="text" name="first_name" value="{{ first_name }}">
+            </div>
+            <div class="for_first_column">
+                <p>Last name</p>
+                <input class="last_name" type="text" name="last_name" value="{{ last_name }}">
+            </div>
+            <div class="for_first_column">
+                <p>Location</p>
+                <input class="city" type="text" name="city" value="{{ city }}">
+            </div>
+            <div class="gender_and_birthday">
+                <div class="gender">
+                    <p>Gender</p>
+                    {% if gender == 'male'%}
+                        <div>
+                            <div><input type="radio" name="gender" value="male" checked><p>Male</p></div>
+                            <div><input type="radio" name="gender" value="female"><p>Female</p></div>
+                        </div>
+                    {% endif %}
+                    {% if gender == 'female'%}
+                        <div>
+                            <div><input type="radio" name="gender" value="male"><p>Male</p></div>
+                            <div><input type="radio" name="gender" value="female" checked><p>Female</p></div>
+                        </div>
+                    {% endif %}
+                    {% if gender != 'female' and gender != 'male'%}
+                        <div>
+                            <div><input type="radio" name="gender" value="male"><p>Male</p></div>
+                            <div><input type="radio" name="gender" value="female"><p>Female</p></div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="birthday">
+                    <p>Birthday</p>
+                    <input type="date" name="age" value="{{ age }}">
+                </div>
+            </div>
+            <div class="for_second_column avatar">
+                <img src="{{ avatar }}">
+                <input type="file" name="avatar" accept="image/*">
+            </div>
+            <div class="for_second_column bio">
+                <p>Bio</p>
+                <textarea maxlength="400" name="bio">{{ bio }}</textarea>
+            </div>
+            <div class="buttons">
+                <button class="submit" type="submit">
+                    <p>APPLY</p>
+                </button>
+                <a class="cancel" href="{{ request.path }}../">
+                    <p>CANCEL</p>
+                </a>
+                <ul class="error_ul">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <li class="message">{{ message }}</li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </form>
+
+
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+</body>
+</html>

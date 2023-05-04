@@ -1,0 +1,193 @@
+@media screen, (min-width: 1024px) {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .main_form {
+        width: 30vw;
+        margin-left: 90px;
+        margin-top: 30px;
+    }
+
+    .input1 input {
+        outline: none;
+        padding: 5px;
+    }
+
+    .input2 {
+        outline: none;
+    }
+
+
+    .input2 input {
+        outline: none;
+        padding: 5px;
+        margin-bottom: 8px !important;
+    }
+
+    .button {
+        margin-bottom: 10px;
+        text-align: center;
+        width: 55%;
+        margin-left: 5px;
+    }
+
+    .button input {
+        outline: none;
+        border: 0;
+        font-size: 0.9em;
+        color: white;
+        border-radius: 5px;
+        background-color: black;
+        height: 30px;
+        width: 100%;
+        opacity: 0.5;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    input {
+        width: 55%;
+    }
+
+    .without {
+        margin-top: 20px;
+        text-align: center;
+        width: 55%;
+    }
+
+    .without a {
+        color: dodgerblue;
+        text-decoration: none;
+        font-family: Verdana, 'sans-serif';
+        font-weight: bold;
+    }
+
+    .without a:visited {
+        color: dodgerblue;
+        text-decoration: none;
+        font-family: Verdana, 'sans-serif';
+        font-weight: bold;
+    }
+
+    .without a:hover {
+        transition: 0.5s;
+        color: black;
+        text-decoration: none;
+    }
+
+    .for_small {
+        display: none;
+    }
+
+    .main_cont {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .input_div input {
+        font-size: 1.1em;
+        outline: none;
+        margin-bottom: 20px;
+    }
+
+    .input_div p {
+        font-size: 1.1em;
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-family: Verdana, 'sans-serif';
+    }
+
+    .input_text input {
+        letter-spacing: 0.1em;
+        padding: 2px;
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    .see_password {
+        border-radius: 10px;
+        display: none;
+    }
+
+    .see_password:hover {
+        cursor: pointer;
+    }
+
+    .password_cont div {
+        margin-left: 10px;
+    }
+
+    .see_password img {
+        width: 30px;
+    }
+
+    .password_cont {
+        display: flex;
+    }
+
+    .button_add:hover {
+        cursor: pointer;
+        background-color: #410056;
+    }
+
+    .error_p {
+        font-family: Verdana, 'sans-serif';
+        font-weight: bold;
+        margin-top: 20px;
+        width: 55%;
+        opacity: 0;
+        text-align: center;
+        transition: 1s;
+    }
+
+    .painting_main {
+        margin-top: 5vh;
+        width: 70vh;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .forget_password {
+        text-decoration: none;
+    }
+
+    .forget_password div {
+        background-color: #410056;
+        width: 30%;
+        font-size: 1em;
+        color: white;
+        padding: 2px 15px 2px 15px;
+        border-radius: 5px;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        transition: 0.3s;
+    }
+
+    .forget_password div p {
+        font-weight: normal;
+        text-align: center;
+        margin-top: 3px;
+    }
+
+    .forget_password_add:hover {
+        background-color: black;
+    }
+}
+
+@media not screen, (max-width: 1023px) {
+    .main_cont {
+        display: none;
+    }
+
+    .for_small img{
+        width: 20%;
+    }
+
+    .for_small {
+        margin-top: 20px;
+        display: block;
+        text-align: center;
+    }
+}

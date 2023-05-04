@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Server сomponents</title>
+    <link rel="stylesheet" href="{% static '../static/css/about_css/server/server_сomponents_css.css' %}">
+</head>
+<body>
+    {% include 'blocks/menu/main_menu.html' %}
+    <main class="main_cont">
+        <section class="main_sec">
+            <img class="mars_logo" src="../../../static/img/logo/mars.png">
+            <div class="comp_cont">
+                <div class="comp">
+                    <h2>Intel Xeon e5430</h2>
+                    <img src="../../../static/img/сomponents/xeon_e5430.jpg">
+                    <ul>
+                        <li>2,66GHz</li>
+                        <li>LGA775</li>
+                        <li>4 cores</li>
+                    </ul>
+                </div>
+                <div class="comp">
+                    <h2>GIGABYTE GA-G41MT-S2</h2>
+                    <img src="../../../static/img/сomponents/gigabyte_ga_g41.png">
+                    <ul>
+                        <li>G41</li>
+                        <li>LGA775</li>
+                        <li>Micro ATX</li>
+                    </ul>
+                </div>
+                <div class="comp">
+                    <h2>HyperX Predator DDR3</h2>
+                    <img src="../../../static/img/сomponents/hyperx_predator.png">
+                    <ul>
+                        <li>2x8GB</li>
+                        <li>DDR3</li>
+                        <li>2400MHz</li>
+                    </ul>
+                </div>
+                <div class="comp">
+                    <h2>XILENCE Redwing XP350R7</h2>
+                    <img src="../../../static/img/сomponents/XILENCE_Redwing.png">
+                    <ul>
+                        <li>350W</li>
+                        <li>ATX</li>
+                        <li>Active</li>
+                    </ul>
+                </div>
+                <div class="comp">
+                    <h2>DEEPCOOL ICE EDGE Mini</h2>
+                    <img src="../../../static/img/сomponents/deepcool_ice_edge.png">
+                    <ul>
+                        <li>Mini tower</li>
+                        <li>2 pipes</li>
+                        <li>2200RPM</li>
+                    </ul>
+                </div>
+                <div class="comp">
+                    <h2>Ginzzu B190</h2>
+                    <img src="../../../static/img/сomponents/Ginzzu_B190.png">
+                    <ul>
+                        <li>Micro ATX</li>
+                        <li>345x165x295</li>
+                        <li>+ Exegate 12025M12S</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="second_sec">
+            <img src="../../../static/img/сomponents/mars1_render.png">
+        </section>
+        {% include 'blocks/footer/main_footer.html' %}
+    </main>
+
+    <div class="for_small">
+        <img src="../../static/img/smiles/pokerface_smile.png">
+        <p>Your device is too small!</p>
+    </div>
+</body>
+</html>

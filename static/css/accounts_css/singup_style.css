@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@media screen, (min-width: 1024px) {
+    .for_small {
+        display: none;
+    }
+
+    body {
+        font-family: Arial, 'sans-serif';
+    }
+
+    .main_cont {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .main_form {
+        margin-top: 30px;
+        margin-left: 90px;
+        font-family: Verdana, 'sans-serif';
+        font-weight: bold;
+        width: 30vw;
+    }
+
+    .p {
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 55%;
+    }
+
+    .errorlist li {
+        color: white;
+        list-style-type: none;
+    }
+
+    .input_div input {
+        font-size: 1.1em;
+        outline: none;
+        margin-bottom: 20px;
+    }
+
+    .input_div p {
+        font-size: 1.1em;
+        margin-bottom: 5px;
+    }
+
+    .input5 {
+        display: flex;
+        width: 55%;
+    }
+
+    .input5 input {
+        margin-top: 3px;
+        width: 20px;
+        margin-right: 10px;
+        letter-spacing: 0.2em;
+    }
+
+    .input5 p a {
+        text-decoration: none;
+        color: dodgerblue;
+        transition: 0.3s;
+    }
+
+    .input5 p a:hover {
+        color: black;
+    }
+
+    .input_text input {
+        letter-spacing: 0.1em;
+        padding: 2px;
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    .with {
+        margin-top: 20px;
+        text-align: center;
+        width: 57%;
+    }
+
+    .with a {
+        color: dodgerblue;
+        text-decoration: none;
+    }
+
+    .with a:visited {
+        color: dodgerblue;
+        text-decoration: none;
+    }
+
+    .with a:hover {
+        transition: 0.5s;
+        color: black;
+        text-decoration: none;
+    }
+
+    .button {
+        color: white;
+        text-align: center;
+        width: 55%;
+        opacity: 0.5;
+        transition: 1s;
+    }
+
+    .button input {
+        outline: none;
+        border: 0;
+        font-size: 0.9em;
+        color: white;
+        border-radius: 5px;
+        background-color: black;
+        height: 30px;
+        transition: 1s;
+        width: 100%;
+        margin-left: 2px;
+        font-weight: bold;
+    }
+
+    .button_add:hover {
+        cursor: pointer;
+        background-color: #410056;
+    }
+
+    .password_cont {
+        display: flex;
+    }
+
+    .password_cont div {
+        margin-left: 10px;
+    }
+
+    .password_cont div img {
+        width: 30px;
+    }
+
+    .error_p {
+        width: 55%;
+        opacity: 0;
+        text-align: center;
+        margin-top: 20px;
+        transition: 1s;
+    }
+
+    .see_password {
+        border-radius: 10px;
+    }
+
+    .see_password:hover {
+        cursor: pointer;
+    }
+
+    .painting_main {
+        margin-top: 5vh;
+        width: 70vh;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media not screen, (max-width: 1023px) {
+    .main_cont {
+        display: none;
+    }
+
+    .for_small img{
+        width: 20%;
+    }
+
+    .for_small {
+        margin-top: 20px;
+        display: block;
+        text-align: center;
+    }
+}
